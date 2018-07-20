@@ -1,18 +1,26 @@
-package com.example.bottombar;
+package com.example.eticket;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
 
-import com.example.bottombar.fragment.Fragment1;
-import com.example.bottombar.fragment.Fragment2;
-import com.example.bottombar.fragment.Fragment3;
+import com.example.eticket.fragment.Fragment1;
+import com.example.eticket.fragment.Fragment2;
+import com.example.eticket.fragment.Fragment3;
+import com.example.eticket.fragment.Fragment4;
+import com.example.eticket.fragment.Fragment5;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);//remove title bar  即隐藏标题栏
+        getSupportActionBar().hide();
+
         setContentView(R.layout.activity_main);
+
+
 
         BottomBar bottomBar = findViewById(R.id.bottom_bar);
         bottomBar.setContainer(R.id.fl_container)
@@ -29,6 +37,14 @@ public class MainActivity extends AppCompatActivity {
                         "我的",
                         R.drawable.item3_before,
                         R.drawable.item3_after)
+                .addItem(Fragment4.class,
+                        "测试4",
+                        R.drawable.item2_before,
+                        R.drawable.item2_after)
+                .addItem(Fragment5.class,
+                        "测试5",
+                        R.drawable.item2_before,
+                        R.drawable.item2_after)
                 .build();
     }
 }

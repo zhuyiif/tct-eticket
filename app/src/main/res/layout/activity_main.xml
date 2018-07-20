@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
     android:orientation="vertical">
 
     <FrameLayout
@@ -12,10 +13,10 @@
 
     </FrameLayout>
 
-    <com.example.bottombar.BottomBar
-        android:background="#FFFFFF"
+    <com.example.eticket.BottomBar
         android:id="@+id/bottom_bar"
         android:layout_width="match_parent"
-        android:layout_height="46dp"
-        android:layout_gravity="bottom" />
+        android:layout_height="36dp"
+        android:layout_gravity="bottom"
+        android:background="#ffffff" />
 </LinearLayout>

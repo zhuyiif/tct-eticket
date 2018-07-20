@@ -1,4 +1,4 @@
-package com.example.bottombar;
+package com.example.eticket;
 
 import org.junit.Test;
 

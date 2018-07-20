@@ -1,4 +1,4 @@
-package com.example.bottombar;
+package com.example.eticket;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -57,8 +57,12 @@ public class BottomBar extends View {
     private int titleColorAfter = Color.parseColor("#ff5d5e");
 
     private int titleSizeInDp = 10;
-    private int iconWidth = 20;
-    private int iconHeight = 20;
+    private int iconWidth = 16;
+    private int iconHeight = 16;
+
+    private int centerIconWidth = 40;
+    private int centerIconHeight = 40;
+
     private int titleIconMargin = 5;
 
     public BottomBar setContainer(int containerId) {
@@ -164,6 +168,12 @@ public class BottomBar extends View {
             int iconWidth = dp2px(this.iconWidth);//先指定20dp
             int iconHeight = dp2px(this.iconHeight);
 
+            int centerWidth =  dp2px(this.centerIconWidth);
+            int centerHeight =  dp2px(this.centerIconHeight);
+
+            int diff = centerWidth - iconWidth;
+
+
             //图标文字margin
             int textIconMargin = dp2px(((float)titleIconMargin)/2);//先指定5dp，这里除以一半才是正常的margin，不知道为啥，可能是图片的原因
 
@@ -175,8 +185,9 @@ public class BottomBar extends View {
             int titleHeight = rect.height();
 
             //从而计算得出图标的起始top坐标、文本的baseLine
-            int iconTop = (parentItemHeight - iconHeight - textIconMargin - titleHeight)/2;
-            titleBaseLine = parentItemHeight - iconTop;
+            int iconTop = parentItemHeight - iconHeight - textIconMargin - titleHeight - textIconMargin;
+
+            titleBaseLine = iconTop + iconHeight + titleHeight + textIconMargin;
 
             //对icon的rect的参数进行赋值
             int firstRectX = (parentItemWidth - iconWidth) / 2;//第一个icon的左
@@ -185,10 +196,22 @@ public class BottomBar extends View {
 
                 Rect temp = iconRectList.get(i);
 
-                temp.left = rectX;
-                temp.top = iconTop ;
-                temp.right = rectX + iconWidth;
-                temp.bottom = iconTop + iconHeight;
+                if (i == 2) {
+                    temp.left = rectX - diff /2 ;
+                    temp.top = iconTop - diff /2;
+                    temp.right = rectX + centerWidth -  diff/2;
+                    temp.bottom = iconTop + centerHeight - diff /2;
+
+                }
+                else {
+                    temp.left = rectX;
+                    temp.top = iconTop ;
+                    temp.right = rectX + iconWidth;
+                    temp.bottom = iconTop + iconHeight;
+
+                }
+
+
             }
 
             //标题（单位是个问题）
@@ -237,7 +260,9 @@ public class BottomBar extends View {
                     paint.setColor(titleColorBefore);
                 }
                 int x = titleXList.get(i);
-                canvas.drawText(title, x, titleBaseLine, paint);
+                if (i != 2) {
+                    canvas.drawText(title, x, titleBaseLine, paint);
+                }
             }
         }
     }

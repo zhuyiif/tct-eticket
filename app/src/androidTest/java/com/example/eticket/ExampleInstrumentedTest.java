@@ -1,4 +1,4 @@
-package com.example.bottombar;
+package com.example.eticket;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

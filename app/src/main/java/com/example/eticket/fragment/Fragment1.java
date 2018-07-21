@@ -3,8 +3,10 @@ package com.example.eticket.fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -12,11 +14,25 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.eticket.R;
+import com.example.eticket.ViewPagerAdapter;
 import com.tmall.ultraviewpager.UltraViewPager;
 import com.tmall.ultraviewpager.UltraViewPagerAdapter;
 
 
 public class Fragment1 extends Fragment {
+
+    //This is our tablayout
+    private TabLayout tabLayout;
+
+    //This is our viewPager
+    private ViewPager viewPager;
+
+    ViewPagerAdapter adapter;
+
+    Fragment6 testFragment6;
+    Fragment7 testFragment7;
+    Fragment8 testFragment8;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -59,5 +75,66 @@ public class Fragment1 extends Fragment {
 //enable auto-scroll mode
         ultraViewPager.setAutoScroll(2000);
 
+
+        //Initializing viewPager
+        viewPager = (ViewPager) getActivity().findViewById(R.id.viewpager);
+        viewPager.setOffscreenPageLimit(3);
+        setupViewPager(viewPager);
+
+        //Initializing the tablayout
+        tabLayout = (TabLayout) getActivity().findViewById(R.id.tablayout);
+
+        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition(),false);
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                tabLayout.getTabAt(position).select();
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+
+
+    }
+
+    private void setupViewPager(ViewPager viewPager)
+    {
+        adapter = new ViewPagerAdapter(getFragmentManager());
+        testFragment6=new Fragment6();
+        adapter.addFragment(testFragment6,"CALLS");
+
+        testFragment7=new Fragment7();
+        adapter.addFragment(testFragment7,"CHAT");
+
+        testFragment8=new Fragment8();
+        adapter.addFragment(testFragment8,"CONTACTS");
+
+        viewPager.setAdapter(adapter);
     }
 }

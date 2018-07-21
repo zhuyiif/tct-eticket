@@ -1,11 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:scrollbars="vertical">
+
+
+<RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     >
+
+
 
     <com.tmall.ultraviewpager.UltraViewPager
         android:id="@+id/ultra_viewpager"
@@ -32,39 +39,100 @@
             android:layout_height="fill_parent"
             android:layout_weight="0.25"
             android:drawableTop="@drawable/test_h"
-            android:text="test"
-            android:textSize="5sp"
+            android:text="微互动"
+            android:textSize="10sp"
             android:textColor="#000000"
              />
 
         <Button
             android:id="@+id/deny"
-            android:layout_width="0.0dip" android:layout_height="fill_parent"
-            android:text="Deny"
-            android:layout_weight="0.25" />
+            android:background="@null"
+
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.25"
+            android:drawableTop="@drawable/test_h"
+            android:text="路线查询"
+            android:textSize="10sp"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/deny1"
-            android:layout_width="0.0dip" android:layout_height="fill_parent"
-            android:text="Deny"
-            android:layout_weight="0.25" />
+            android:background="@null"
+
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.25"
+            android:drawableTop="@drawable/test_h"
+            android:text="微互动"
+            android:textSize="10sp"
+            android:textColor="#000000" />
 
         <Button
             android:id="@+id/deny2"
-            android:layout_width="0.0dip" android:layout_height="fill_parent"
-            android:text="Deny"
-            android:layout_weight="0.25" />
+            android:background="@null"
+
+            android:layout_width="0.0dip"
+            android:layout_height="fill_parent"
+            android:layout_weight="0.25"
+            android:drawableTop="@drawable/test_h"
+            android:text="微互动"
+            android:textSize="10sp"
+            android:textColor="#000000" />
 
     </LinearLayout>
 
 
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:text="1"
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
         android:layout_below="@+id/buttons"
-         />
+        android:id="@+id/tabrootlayout">
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabBackground="@color/colorPrimary"
+            app:tabGravity="fill"
+            app:tabMode="fixed"
+            app:tabIndicatorColor="@color/colorAccent"
+            app:tabSelectedTextColor="@color/colorTextPrimary"
+            app:tabTextColor="@color/colorTextDisable">
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tab1"
+                android:icon="@drawable/tab_call_selector"
+                style="@style/tab_item"
+                android:text="@string/tab1" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tab2"
+                android:icon="@drawable/tab_chat_selector"
+                style="@style/tab_item"
+                android:text="@string/tab2" />
+
+            <android.support.design.widget.TabItem
+                android:id="@+id/tab3"
+                android:icon="@drawable/tab_contacts_selector"
+                style="@style/tab_item"
+                android:text="@string/tab3" />
+
+        </android.support.design.widget.TabLayout>
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tablayout"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    </RelativeLayout>
+
+
+
 </RelativeLayout>
+
+</ScrollView>

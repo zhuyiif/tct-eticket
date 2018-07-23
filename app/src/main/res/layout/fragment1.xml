@@ -98,7 +98,7 @@
             android:layout_height="wrap_content"
             app:tabBackground="@color/colorPrimary"
             app:tabGravity="fill"
-            app:tabMode="fixed"
+            app:tabMode="scrollable"
             app:tabIndicatorColor="@color/colorAccent"
             app:tabSelectedTextColor="@color/colorTextPrimary"
             app:tabTextColor="@color/colorTextDisable">

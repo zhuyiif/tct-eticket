@@ -1,9 +1,11 @@
 <resources>
-    <string name="app_name">BottomBar</string>
+    <string name="app_name">eticket</string>
 
-    <string name="tab1">CALLS</string>
-    <string name="tab2">CHATS</string>
-    <string name="tab3">CONTACTS</string>
+    <string name="tab1">街探</string>
+    <string name="tab2">吃吃吃</string>
+    <string name="tab3">玩玩玩</string>
+    <string name="tab4">买买买</string>
+    <string name="tab5">出去浪</string>
     <string name="action_search">Search</string>
     <string name="action_chat">Chat</string>
     <string name="action_new_group">New Group</string>

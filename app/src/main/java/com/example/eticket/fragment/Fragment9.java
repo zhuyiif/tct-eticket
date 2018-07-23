@@ -9,10 +9,10 @@ import android.view.ViewGroup;
 
 import com.example.eticket.R;
 
-public class Fragment7 extends Fragment {
+public class Fragment9 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return LayoutInflater.from(getActivity()).inflate(R.layout.fragment7, container, false);
+        return LayoutInflater.from(getActivity()).inflate(R.layout.fragment9, container, false);
     }
 }

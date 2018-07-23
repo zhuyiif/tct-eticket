@@ -32,6 +32,8 @@ public class Fragment1 extends Fragment {
     Fragment6 testFragment6;
     Fragment7 testFragment7;
     Fragment8 testFragment8;
+    Fragment9 testFragment9;
+    Fragment10 testFragment10;
 
     @Nullable
     @Override
@@ -127,13 +129,19 @@ public class Fragment1 extends Fragment {
     {
         adapter = new ViewPagerAdapter(getFragmentManager());
         testFragment6=new Fragment6();
-        adapter.addFragment(testFragment6,"CALLS");
+        adapter.addFragment(testFragment6,"6");
 
         testFragment7=new Fragment7();
-        adapter.addFragment(testFragment7,"CHAT");
+        adapter.addFragment(testFragment7,"7");
 
         testFragment8=new Fragment8();
-        adapter.addFragment(testFragment8,"CONTACTS");
+        adapter.addFragment(testFragment8,"8");
+
+        testFragment9 = new Fragment9();
+        adapter.addFragment(testFragment9,"9");
+
+        testFragment10 = new Fragment10();
+        adapter.addFragment(testFragment10,"10");
 
         viewPager.setAdapter(adapter);
     }

@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ScrollView;
 
 import com.example.eticket.ListViewAdapter;
 import com.example.eticket.Person;
@@ -101,6 +102,8 @@ public class Fragment1 extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 viewPager.setCurrentItem(tab.getPosition(),false);
+                ScrollView scrollView =  getActivity().findViewById(R.id.scrollView);
+                scrollView.smoothScrollTo(0, 0);
             }
 
             @Override
@@ -131,6 +134,10 @@ public class Fragment1 extends Fragment {
 
             }
         });
+
+
+
+
 
 
     }
@@ -172,5 +179,7 @@ public class Fragment1 extends Fragment {
         adapter.addFragment(testFragment10,"10");
 
         viewPager.setAdapter(adapter);
+
+
     }
 }

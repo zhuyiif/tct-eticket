@@ -3,7 +3,6 @@ package com.example.eticket.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,33 +22,37 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Fragment6 extends FragmentTabBase {
+
+
+public class FragmentTabBase extends Fragment {
 
     public ListView listView;
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return LayoutInflater.from(getActivity()).inflate(R.layout.fragment6, container, false);
-    }
+
 
     @Override
     public void onStart() {
         super.onStart();
 
-        listView = getActivity().findViewById(R.id.listView);
-        listView.setAdapter(new ListViewAdapter(getContext(), readListFromFile()));
-
-        View multiTabLayout =  getActivity().findViewById(R.id.tabrootlayout);
-
-        Utility.setListViewHeightBasedOnChildren(listView, multiTabLayout);
-
-        ScrollView scrollView =  getActivity().findViewById(R.id.scrollView);
-        scrollView.smoothScrollTo(0, 0);
-
-
 
     }
 
 
-
+    @Nullable
+    public List<Person> readListFromFile(){
+        try{
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(getActivity().getAssets()
+                    .open("persons.txt")));
+            StringBuilder stringBuilder = new StringBuilder();
+            String line;
+            while((line = bufferedReader.readLine()) != null){
+                stringBuilder.append(line);
+            }
+            Gson gson = new Gson();
+            return gson.fromJson(stringBuilder.toString(), new TypeToken<List<Person>>(){}
+                    .getType());
+        }catch (IOException exception){
+            exception.printStackTrace();
+            return new ArrayList<>();
+        }
+    }
 }

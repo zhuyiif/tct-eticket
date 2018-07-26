@@ -29,17 +29,16 @@
         android:paddingLeft="0dp"
         android:paddingTop="5dp"
         android:paddingRight="0dp"
-        android:layout_width="fill_parent" android:layout_height="60dp"
+        android:layout_width="fill_parent" android:layout_height="80dp"
         android:layout_below="@+id/ultra_viewpager">
 
         <Button
             android:id="@+id/allow"
             android:background="@null"
-
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
-            android:layout_weight="0.25"
-            android:drawableTop="@drawable/test_h"
+            android:layout_weight="0.1"
+            android:drawableTop="@drawable/home_btn_interactive"
             android:text="微互动"
             android:textSize="10sp"
             android:textColor="#000000"
@@ -48,11 +47,10 @@
         <Button
             android:id="@+id/deny"
             android:background="@null"
-
             android:layout_width="0.0dip"
-            android:layout_height="fill_parent"
-            android:layout_weight="0.25"
-            android:drawableTop="@drawable/test_h"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1"
+            android:drawableTop="@drawable/home_btn_route"
             android:text="路线查询"
             android:textSize="10sp"
             android:textColor="#000000" />
@@ -63,9 +61,9 @@
 
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
-            android:layout_weight="0.25"
-            android:drawableTop="@drawable/test_h"
-            android:text="微互动"
+            android:layout_weight="0.1"
+            android:drawableTop="@drawable/home_btn_time"
+            android:text="时刻查询"
             android:textSize="10sp"
             android:textColor="#000000" />
 
@@ -75,9 +73,9 @@
 
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
-            android:layout_weight="0.25"
-            android:drawableTop="@drawable/test_h"
-            android:text="微互动"
+            android:layout_weight="0.1"
+            android:drawableTop="@drawable/home_btn_surplus"
+            android:text="我的余额"
             android:textSize="10sp"
             android:textColor="#000000" />
 

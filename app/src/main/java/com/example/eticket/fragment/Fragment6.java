@@ -43,10 +43,6 @@ public class Fragment6 extends FragmentTabBase {
 
         Utility.setListViewHeightBasedOnChildren(listView, multiTabLayout);
 
-        ScrollView scrollView =  getActivity().findViewById(R.id.scrollView);
-        scrollView.smoothScrollTo(0, 0);
-
-
 
     }
 

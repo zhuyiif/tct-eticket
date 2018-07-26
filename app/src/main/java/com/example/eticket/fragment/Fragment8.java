@@ -7,12 +7,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.eticket.ListViewAdapter;
 import com.example.eticket.R;
+import com.example.eticket.Utility;
 
-public class Fragment8 extends Fragment {
+public class Fragment8 extends FragmentTabBase {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return LayoutInflater.from(getActivity()).inflate(R.layout.fragment8, container, false);
+    }
+
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        listView = getActivity().findViewById(R.id.listView8);
+        listView.setAdapter(new ListViewAdapter(getContext(), readListFromFile()));
+
+        View multiTabLayout =  getActivity().findViewById(R.id.tabrootlayout);
+
+        Utility.setListViewHeightBasedOnChildren(listView, multiTabLayout);
+
+
     }
 }

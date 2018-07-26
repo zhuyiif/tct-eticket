@@ -6,4 +6,7 @@
 
     <color name="colorTextPrimary">#FFFFFF</color>
     <color name="colorTextDisable">#66FFFFFF</color>
+    <color name="transparent">#00FFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
+
 </resources>

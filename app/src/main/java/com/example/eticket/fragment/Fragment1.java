@@ -101,9 +101,13 @@ public class Fragment1 extends Fragment {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition(),false);
+
                 ScrollView scrollView =  getActivity().findViewById(R.id.scrollView);
-                scrollView.smoothScrollTo(0, 0);
+                int currentY = scrollView.getScrollY();
+
+                viewPager.setCurrentItem(tab.getPosition(),false);
+                scrollView.smoothScrollTo(0,currentY);
+
             }
 
             @Override

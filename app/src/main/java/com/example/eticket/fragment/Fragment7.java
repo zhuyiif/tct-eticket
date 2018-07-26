@@ -31,6 +31,6 @@ public class Fragment7 extends FragmentTabBase {
 
         Utility.setListViewHeightBasedOnChildren(listView, multiTabLayout);
 
-        
+
     }
 }

@@ -18,19 +18,16 @@ public class Utility {
 
         int totalHeightDp = 0;
 
-
-
-        totalHeightDp = 50 * listAdapter.getCount();
+        totalHeightDp = 88 * listAdapter.getCount();
 
         ViewGroup.LayoutParams params = container.getLayoutParams();
 
         Resources r = Resources.getSystem();
 
-
         float px = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 48 + totalHeightDp + 8, r.getDisplayMetrics());
         params.height =  (listView.getDividerHeight() * (listAdapter.getCount() - 1))+ (int)px;
 
-//        container.setLayoutParams(params);
-//        container.requestLayout();
+        container.setLayoutParams(params);
+        container.requestLayout();
     }
 }

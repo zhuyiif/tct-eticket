@@ -3,6 +3,7 @@ package com.example.eticket;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Window;
 
 import com.example.eticket.fragment.Fragment1;
@@ -17,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Log.d("MainActivity","start main");
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);//remove title bar  即隐藏标题栏
         getSupportActionBar().hide();

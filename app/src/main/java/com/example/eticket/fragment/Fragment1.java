@@ -57,6 +57,22 @@ public class Fragment1 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        adapter = new ViewPagerAdapter(getChildFragmentManager());
+        testFragment6=new Fragment6();
+        adapter.addFragment(testFragment6,"6");
+
+        testFragment7=new Fragment7();
+        adapter.addFragment(testFragment7,"7");
+
+        testFragment8=new Fragment8();
+        adapter.addFragment(testFragment8,"8");
+
+        testFragment9 = new Fragment9();
+        adapter.addFragment(testFragment9,"9");
+
+        testFragment10 = new Fragment10();
+        adapter.addFragment(testFragment10,"10");
+
 
 
     }
@@ -166,24 +182,8 @@ public class Fragment1 extends Fragment {
 
     private void setupViewPager(ViewPager viewPager)
     {
-        adapter = new ViewPagerAdapter(getFragmentManager());
-        testFragment6=new Fragment6();
-        adapter.addFragment(testFragment6,"6");
-
-        testFragment7=new Fragment7();
-        adapter.addFragment(testFragment7,"7");
-
-        testFragment8=new Fragment8();
-        adapter.addFragment(testFragment8,"8");
-
-        testFragment9 = new Fragment9();
-        adapter.addFragment(testFragment9,"9");
-
-        testFragment10 = new Fragment10();
-        adapter.addFragment(testFragment10,"10");
 
         viewPager.setAdapter(adapter);
-
 
     }
 }

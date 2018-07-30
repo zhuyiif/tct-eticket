@@ -1,5 +1,6 @@
 package com.example.eticket;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
@@ -9,6 +10,8 @@ import com.example.eticket.fragment.Fragment2;
 import com.example.eticket.fragment.Fragment3;
 import com.example.eticket.fragment.Fragment4;
 import com.example.eticket.fragment.Fragment5;
+import com.example.eticket.storage.AppStore;
+import com.example.eticket.ui.activity.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -46,5 +49,20 @@ public class MainActivity extends AppCompatActivity {
                         R.drawable.item2_before,
                         R.drawable.item2_after)
                 .build();
+
+        if(!AppStore.isLogin(this)){
+            Intent intent = new Intent(this, LoginActivity.class);
+            startActivity(intent);
+        }
+    }
+
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+//        if(!AppStore.isLogin(this)){
+////            startActivity(new Intent().setClass(this, LoginActivity.class));
+//            Intent intent = new Intent(this, LoginActivity.class);
+//            startActivity(intent);
+//        }
     }
 }

@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg"
+    android:orientation="vertical">
+
+    <!-- Login progress -->
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/login_form"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp">
+
+        <LinearLayout
+            android:id="@+id/email_login_form"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_marginTop="31dp"
+            android:gravity="left"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/logo" />
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_gravity="left"
+            android:text="欢迎回家 ^_^"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="手机号码"
+                android:textColor="@color/white"
+                android:textSize="8sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:text="+86"
+                    android:textColor="@color/white"
+                    android:textSize="11sp" />
+
+                <EditText
+                    android:layout_width="12dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_horizontal"
+                    android:inputType="none"
+                    android:focusable="false"
+                    android:text="|"
+                    android:textColor="@color/white"
+                    android:textSize="11sp" />
+
+                <EditText
+                    android:id="@+id/phone_et"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|left"
+                    android:hint="请输入手机号码"
+                    android:inputType="phone"
+                    android:singleLine="true"
+                    android:textColor="@color/white"
+                    android:textSize="11sp" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_gravity="center"
+                android:text="密码"
+                android:textColor="@color/white"
+                android:textSize="8sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:orientation="horizontal">
+            <EditText
+                android:id="@+id/password_et"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center|left"
+                android:hint="请输入验证码"
+                android:inputType="textPassword"
+                android:singleLine="true"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:textSize="11sp" />
+
+                <Button
+                    android:id="@+id/captcha_bt"
+                    android:layout_width="77dp"
+                    android:layout_height="24dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/btn_selector"
+                    android:gravity="center"
+                    android:text="@string/captcha_bt"
+                    android:textColor="@color/white"
+                    android:textSize="11sp"
+                    android:enabled="false"/>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/login_bt"
+                android:layout_width="match_parent"
+                android:layout_height="31dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="23dp"
+                android:background="@drawable/btn_selector"
+                android:gravity="center"
+                android:text="@string/login_btn"
+                android:textColor="@color/white"
+                android:textSize="13sp"
+                android:enabled="false"/>
+
+        </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="left"
+            android:layout_marginLeft="24dp"
+            android:layout_marginBottom="24dp"
+            android:gravity="center|bottom">
+
+            <TextView
+                android:id="@+id/skip_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="跳过"
+                android:textColor="@color/white"
+                android:textSize="11sp" />
+        </LinearLayout>
+</RelativeLayout>

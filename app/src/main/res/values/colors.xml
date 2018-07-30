@@ -23,4 +23,7 @@
     <color name="popup_main_background">#b0000000</color>
     <color name="orange">#FF9900</color>
 
+    <color name="btn_disable">#4CFFFFFF</color>
+    <color name="btn_enabled">#E60012</color>
+
 </resources>

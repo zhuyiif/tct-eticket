@@ -21,12 +21,9 @@
             </intent-filter>
 
         </activity>
-
-        <activity android:name=".ui.activity.GuideActivity"/>
-        <activity android:name="com.example.eticket.MainActivity">
-
-        </activity>
-
+        <activity android:name=".ui.activity.GuideActivity" />
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".ui.activity.LoginActivity" />
     </application>
 
 </manifest>

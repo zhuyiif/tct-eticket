@@ -21,4 +21,9 @@
     <string name="action_without_icon">Without Icon</string>
     <string name="action_with_icon">With Icon</string>
     <string name="action_custom">Custom Tab</string>
+    <string name="login_btn">登录</string>
+    <string name="captcha_bt">获取验证码</string>
+    <string name="error_invalid_password">验证码无效</string>
+    <string name="error_incorrect_password">错误的验证码</string>
+    <string name="error_field_required">请输入</string>
 </resources>

@@ -62,10 +62,12 @@ public class HttpUtils {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+                
+                Log.d("http", response.toString());
 
+                String responseString = response.body().string();
 
-                   Log.d("http", response.toString());
-
+                Log.d("http", responseString);
 
             }
         });

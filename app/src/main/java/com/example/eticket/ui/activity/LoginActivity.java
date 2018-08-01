@@ -21,6 +21,7 @@ import android.provider.ContactsContract;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,10 +31,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.example.eticket.R;
+import com.example.eticket.okhttp.HttpUtils;
+
+import org.json.JSONException;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -73,6 +78,8 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
     protected Button btnCaptcha;
     @InjectView(R.id.login_bt)
     protected Button btnLogin;
+
+    private HttpUtils httpUtils;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,6 +152,28 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        httpUtils = new HttpUtils();
+
+
+        btnCaptcha.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                Log.d("login", "button click");
+
+                try {
+                    httpUtils.postGetSMSCode("18613203166");
+                } catch (IOException e) {
+                   Log.e("login",e.toString());
+                } catch (JSONException e) {
+                    Log.e("login",e.toString());
+                }
+
+
+            }
+        });
+
+
+
     }
 
 

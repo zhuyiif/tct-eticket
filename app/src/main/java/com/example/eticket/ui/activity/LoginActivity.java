@@ -204,6 +204,16 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
                                         AppStore.saveLoginContent(LoginActivity.this,respObj);
 
+                                        JSONObject contentObj = respObj.getJSONObject("content");
+                                        Log.d("contentobj",contentObj.toString());
+                                        int code = respObj.getInt("code");
+
+                                        Log.d("code", String.valueOf(code));
+
+                                        if(code == 0){
+                                            finish();
+                                        }
+
 
                                     } catch (Throwable t) {
                                         Log.e("login", t.toString());
@@ -221,8 +231,23 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             }
         });
 
-
-
+//       String loginInfo =  AppStore.getLoginContent(this);
+//       Log.d("logininfo",loginInfo);
+//
+//
+//        JSONObject respObj = null;
+//        try {
+//            respObj = new JSONObject(loginInfo);
+//            JSONObject contentObj = respObj.getJSONObject("content");
+//            Log.d("contentobj",contentObj.toString());
+//            int code = respObj.getInt("code");
+//
+//            Log.d("code", String.valueOf(code));
+//
+//
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
 
 
     }

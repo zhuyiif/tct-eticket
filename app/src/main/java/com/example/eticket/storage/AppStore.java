@@ -28,4 +28,12 @@ public class AppStore {
 
     }
 
+
+    public static String getLoginContent(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE);
+        String content = sp.getString(LOGIN, "");
+        return  content;
+
+    }
+
 }

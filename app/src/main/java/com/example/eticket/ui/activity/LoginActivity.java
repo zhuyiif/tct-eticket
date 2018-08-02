@@ -37,12 +37,17 @@ import java.util.List;
 
 import com.example.eticket.R;
 import com.example.eticket.okhttp.HttpUtils;
+import com.example.eticket.storage.AppStore;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -158,19 +163,65 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         btnCaptcha.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                Log.d("login", "button click");
+                Log.d("login", "code button click");
 
                 try {
-                    httpUtils.postGetSMSCode("18613203166");
+                    httpUtils.postGetSMSCode(mIdentityView.getText().toString().trim());
                 } catch (IOException e) {
                    Log.e("login",e.toString());
                 } catch (JSONException e) {
                     Log.e("login",e.toString());
                 }
 
+            }
+        });
+
+
+        btnLogin.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                Log.d("login", "login button click");
+                String code = mPasswordView.getText().toString().trim();
+                String phoneNumber = mIdentityView.getText().toString().trim();
+
+                try {
+                    httpUtils.login(phoneNumber,code, new Callback(){
+                                @Override
+                                public void onFailure(Call call, IOException e) {
+
+                                }
+
+                                @Override
+                                public void onResponse(Call call, Response response) throws IOException {
+
+                                    Log.d("login", response.toString());
+                                    String responseString = response.body().string();
+                                    Log.d("login", responseString);
+
+                                    try {
+
+                                        JSONObject respObj = new JSONObject(responseString);
+                                        Log.d("login", respObj.toString());
+
+                                        AppStore.saveLoginContent(LoginActivity.this,respObj);
+
+
+                                    } catch (Throwable t) {
+                                        Log.e("login", t.toString());
+                                    }
+
+                                }
+                            }
+                    );
+                } catch (IOException e) {
+                    Log.e("login",e.toString());
+                } catch (JSONException e) {
+                    Log.e("login",e.toString());
+                }
 
             }
         });
+
+
 
 
 

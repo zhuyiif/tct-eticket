@@ -62,7 +62,7 @@ public class HttpUtils {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                
+
                 Log.d("http", response.toString());
 
                 String responseString = response.body().string();
@@ -73,8 +73,40 @@ public class HttpUtils {
         });
 
 
+    }
+
+    public void login(String phoneNumber, String code, final Callback cb) throws IOException, JSONException {
+
+        JSONObject postPhone = new JSONObject();
+        postPhone.put("phone", phoneNumber);
 
 
+        RequestBody formBody = new FormBody.Builder()
+                .add("phone", phoneNumber)
+                .add("code",code)
+                .build();
+
+        Request request = new Request.Builder()
+                .url("https://scan-app.funenc.com/api/users/login")
+                .post(formBody)
+                .build();
+
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("http post","failed in callback");
+                cb.onFailure(call,e);
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+
+                cb.onResponse(call,response);
+
+            }
+        });
 
 
     }

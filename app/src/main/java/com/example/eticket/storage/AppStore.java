@@ -2,7 +2,9 @@ package com.example.eticket.storage;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class AppStore {
@@ -21,9 +23,20 @@ public class AppStore {
             return true;
     }
 
+    public static void removeToken(Context context){
+        SharedPreferences.Editor editor = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE).edit();
+        editor.remove(TOKEN);
+        editor.commit();
+    }
+
     public static void saveLoginContent(Context context, JSONObject content) {
         SharedPreferences.Editor editor = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE).edit();
         editor.putString(LOGIN, content.toString());
+        try {
+            editor.putString(TOKEN, content.getJSONObject("content").getString("app_token"));
+        } catch (JSONException e) {
+            Log.e("AppStore","error in parsing response of login",e);
+        }
         editor.commit();
 
     }

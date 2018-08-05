@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Window;
 
+import com.example.eticket.engine.AppEngine;
 import com.example.eticket.fragment.Fragment1;
 import com.example.eticket.fragment.Fragment2;
 import com.example.eticket.fragment.Fragment3;
 import com.example.eticket.fragment.Fragment4;
-import com.example.eticket.fragment.Fragment5;
+import com.example.eticket.fragment.FragmentAccount;
 import com.example.eticket.storage.AppStore;
 import com.example.eticket.ui.activity.LoginActivity;
 
@@ -20,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         Log.d("MainActivity","start main");
+        AppEngine.init(this);
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);//remove title bar  即隐藏标题栏
         getSupportActionBar().hide();
@@ -47,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                         "测试4",
                         R.drawable.item2_before,
                         R.drawable.item2_after)
-                .addItem(Fragment5.class,
+                .addItem(FragmentAccount.class,
                         "测试5",
                         R.drawable.item2_before,
                         R.drawable.item2_after)

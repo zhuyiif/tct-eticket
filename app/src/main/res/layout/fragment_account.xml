@@ -3,38 +3,65 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FAFAFA"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="209dp"
-        android:background="@drawable/personal_info_bg_default">
+        android:layout_height="209dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignWithParentIfMissing="true"
+            android:background="@drawable/personal_info_bg_default"></View>
+
+        <View
+            android:id="@+id/logged_bg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/personal_info_bg_logged"
+            android:visibility="gone"></View>
 
         <TextView
             android:id="@+id/user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
             android:layout_marginTop="11dp"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/login"
             android:layout_width="37dp"
             android:layout_height="37dp"
             android:layout_centerInParent="true"
-            android:background="@drawable/btn_login_selector"/>
+            android:background="@drawable/btn_login_selector" />
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="67dp"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignWithParentIfMissing="true"
+                android:background="@drawable/personal_data_bg_default"></View>
+
+            <View
+                android:id="@+id/personal_data_logged_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/personal_data_bg_logged"
+                android:visibility="gone"></View>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:layout_marginTop="17dp"
                 android:orientation="horizontal">
 
@@ -65,8 +92,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="8dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -75,11 +103,11 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="里程数" />
-                
+
                 <View
                     android:layout_width="1dp"
                     android:layout_height="12dp"
-                    android:background="@color/white"/>
+                    android:background="@color/white" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -91,7 +119,7 @@
                 <View
                     android:layout_width="1dp"
                     android:layout_height="12dp"
-                    android:background="@color/white"/>
+                    android:background="@color/white" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -100,13 +128,14 @@
                     android:gravity="center"
                     android:text="我的勋章" />
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
 
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="61dp"
+        android:background="@color/white"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -120,15 +149,16 @@
                 android:id="@+id/addBalance"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:gravity="center"
-                android:background="@drawable/personal_center_add_balance_btn" />
+                android:background="@drawable/personal_center_add_balance_btn"
+                android:gravity="center" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="余额充值" />
+                android:text="余额充值"
+                android:textSize="8sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -140,9 +170,8 @@
 
             <Button
                 android:id="@+id/favorite"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="12dp"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
                 android:background="@drawable/personal_center_favorite_btn" />
 
             <TextView
@@ -150,7 +179,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="我的收藏" />
+                android:text="我的收藏"
+                android:textSize="8sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -160,7 +190,7 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
+            <Button
                 android:id="@+id/help"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
@@ -171,7 +201,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="智能客服" />
+                android:text="智能客服"
+                android:textSize="8sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -181,18 +212,19 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <ImageButton
+            <Button
                 android:id="@+id/about"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/personal_center_about_btn" />
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:background="@drawable/personal_center_about_btn" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="关于我们" />
+                android:text="关于我们"
+                android:textSize="8sp" />
         </LinearLayout>
     </LinearLayout>
 
@@ -200,45 +232,74 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
+        android:background="@color/white"
+        android:orientation="vertical"
         android:paddingLeft="8dp"
-        android:paddingRight="8dp"
-        android:orientation="vertical">
+        android:paddingRight="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 android:text="我的行程"
-                android:textSize="11sp"
-                android:textColor="#1E1E1E"/>
+                android:textColor="#1E1E1E"
+                android:textSize="11sp" />
 
             <View
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
-            <TextView
+            <LinearLayout
                 android:id="@+id/allMileages"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="全部行程"
-                android:textSize="8sp"
-                android:textColor="#747474"
-                android:visibility="gone"/>
+                android:layout_marginTop="11dp"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="全部行程"
+                    android:textColor="#747474"
+                    android:textSize="8sp" />
+
+                <View
+                    android:layout_width="8dp"
+                    android:layout_height="8dp"
+                    android:layout_marginLeft="3dp"
+                    android:background="@drawable/personal_center_more_btn" />
+            </LinearLayout>
         </LinearLayout>
 
-        <ScrollView
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
+            <View
+                android:id="@+id/no_mileage"
+                android:layout_width="130dp"
+                android:layout_height="59dp"
+                android:layout_gravity="center"
+                android:background="@drawable/no_mileage" />
+
+            <ScrollView
+                android:id="@+id/mileage_details"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
+                android:layout_height="match_parent"
+                android:layout_marginTop="8dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
+        </FrameLayout>
     </LinearLayout>
 </LinearLayout>

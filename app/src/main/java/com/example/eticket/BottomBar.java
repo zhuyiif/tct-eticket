@@ -1,7 +1,9 @@
 package com.example.eticket;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -15,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+
+import com.example.eticket.ui.activity.LoginActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,8 +129,12 @@ public class BottomBar extends View {
 
             Class clx = fragmentClassList.get(i);
             try {
-                Fragment fragment = (Fragment) clx.newInstance();
-                fragmentList.add(fragment);
+                if(Fragment.class.isAssignableFrom(clx)) {
+                    Fragment fragment = (Fragment) clx.newInstance();
+                    fragmentList.add(fragment);
+                }else{
+                    fragmentList.add(null);
+                }
             } catch (InstantiationException | IllegalAccessException e) {
                 e.printStackTrace();
             }
@@ -313,6 +321,10 @@ public class BottomBar extends View {
 
     //注意 这里是只支持AppCompatActivity 需要支持其他老版的 自行修改
     protected void switchFragment(int whichFragment) {
+        Class clx = fragmentClassList.get(whichFragment);
+        if(Activity.class.isAssignableFrom(clx)){
+            getContext().startActivity(new Intent().setClass(getContext(), clx));
+        }
         Fragment fragment = fragmentList.get(whichFragment);
         int frameLayoutId = containerId;
 

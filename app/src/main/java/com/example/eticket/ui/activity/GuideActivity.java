@@ -7,11 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.eticket.R;
+import com.example.eticket.storage.AppStore;
 import com.example.eticket.ui.adapter.VpAdapter;
 
 import java.util.ArrayList;
@@ -30,6 +32,8 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_guide);
 
         vPager = (ViewPager)findViewById(R.id.guide_ViewPager);
@@ -38,6 +42,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
         vpAdapter = new VpAdapter(imageViews);
         vPager.setAdapter(vpAdapter);
         vPager.addOnPageChangeListener(this);
+        AppStore.shownGuidePages(this);
     }
 
     /**
@@ -63,6 +68,7 @@ public class GuideActivity extends AppCompatActivity implements ViewPager.OnPage
                         //跳转到主界面
                         Intent toMainActivity = new Intent(GuideActivity.this, MainActivity.class);
                         startActivity(toMainActivity);
+                        finish();
                         return true;
 
                     }

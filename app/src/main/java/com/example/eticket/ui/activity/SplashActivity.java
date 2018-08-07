@@ -10,7 +10,9 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.RelativeLayout;
 
+import com.example.eticket.MainActivity;
 import com.example.eticket.R;
+import com.example.eticket.storage.AppStore;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -22,8 +24,14 @@ public class SplashActivity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash);
         RelativeLayout layoutSplash = (RelativeLayout) findViewById(R.id.activity_splash);
-        Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
-        startActivity(intent);
+        if (AppStore.wasShownGuidePages(SplashActivity.this)) {
+            startActivity(new Intent().setClass(SplashActivity.this, MainActivity.class));
+            finish();
+        } else {
+            Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
 
         AlphaAnimation alphaAnimation = new AlphaAnimation(.0f, 1.0f);
@@ -41,9 +49,12 @@ public class SplashActivity extends AppCompatActivity {
                 //页面的跳转
 //                animation.cancel();
 //                this.onAnimationEnd(animation);
-                Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
-                startActivity(intent);
-
+                if (AppStore.wasShownGuidePages(SplashActivity.this)) {
+                    startActivity(new Intent().setClass(SplashActivity.this, MainActivity.class));
+                } else {
+                    Intent intent = new Intent(SplashActivity.this, GuideActivity.class);
+                    startActivity(intent);
+                }
             }
 
             @Override

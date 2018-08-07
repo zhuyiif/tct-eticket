@@ -11,6 +11,7 @@ public class AppStore {
 
     public static final String SHARED_PREFERENCES_KEY ="E_TICKET_DATA_KEY";
     public static final String TOKEN = "token";
+    public static final String WAS_SHOWN_GUIDE_PAGES = "WAS_SHOWN_GUIDE_PAGES";
 
     public static final String LOGIN ="E_TICKET_LOGIN_CONTENT_KEY";
 
@@ -26,6 +27,17 @@ public class AppStore {
     public static void removeToken(Context context){
         SharedPreferences.Editor editor = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE).edit();
         editor.remove(TOKEN);
+        editor.commit();
+    }
+
+    public static boolean wasShownGuidePages(Context context){
+        SharedPreferences sp = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE);
+        return sp.getBoolean(WAS_SHOWN_GUIDE_PAGES, false);
+    }
+
+    public static void shownGuidePages(Context context){
+        SharedPreferences.Editor editor = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE).edit();
+        editor.putBoolean(WAS_SHOWN_GUIDE_PAGES, true);
         editor.commit();
     }
 

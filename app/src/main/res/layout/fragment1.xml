@@ -83,11 +83,55 @@
 
 
 
+    <LinearLayout
+        android:orientation="horizontal"
+        android:id="@+id/notice"
+        android:background="@drawable/notice_bg"
+        android:layout_width="fill_parent" android:layout_height="36dp"
+        android:layout_below="@+id/buttons">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="19dp"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:src="@drawable/notice"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:paddingLeft="8dp"
+            android:textSize="@dimen/small_text"
+            android:text="西安地铁六号线首个盾构区间双线贯通"/>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_vertical"
+            android:gravity="center_vertical"
+            android:paddingRight="8dp"
+            android:textSize="@dimen/small_text"
+            android:text="更多"/>
+
+
+
+
+
+
+    </LinearLayout>>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/buttons"
+        android:layout_below="@+id/notice"
         android:id="@+id/tabrootlayout">
 
         <android.support.design.widget.TabLayout

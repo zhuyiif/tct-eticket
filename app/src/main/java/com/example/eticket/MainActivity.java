@@ -38,27 +38,27 @@ public class MainActivity extends AppCompatActivity {
                         R.drawable.item1_before,
                         R.drawable.item1_after)
                 .addItem(Fragment2.class,
-                        "订单",
-                        R.drawable.item2_before,
+                        "行程",
+                        R.drawable.routes_before,
                         R.drawable.item2_after)
                 .addItem(Fragment3.class,
-                        "我的",
+                        "",
                         R.drawable.item3_before,
                         R.drawable.item3_after)
                 .addItem(Fragment4.class,
-                        "测试4",
-                        R.drawable.item2_before,
+                        "资讯",
+                        R.drawable.info_before,
                         R.drawable.item2_after)
                 .addItem(FragmentAccount.class,
-                        "测试5",
-                        R.drawable.item2_before,
+                        "我的",
+                        R.drawable.me_before,
                         R.drawable.item2_after)
                 .build();
 
-        if(!AppStore.isLogin(this)){
-            Intent intent = new Intent(this, LoginActivity.class);
-            startActivity(intent);
-        }
+//        if(!AppStore.isLogin(this)){
+//            Intent intent = new Intent(this, LoginActivity.class);
+//            startActivity(intent);
+//        }
     }
 
     @Override

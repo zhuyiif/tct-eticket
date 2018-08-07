@@ -156,6 +156,11 @@ public class Fragment1 extends Fragment {
         });
 
 
+        ScrollView scrollView =  getActivity().findViewById(R.id.scrollView);
+
+        scrollView.smoothScrollTo(0,0);
+
+
 
 
 

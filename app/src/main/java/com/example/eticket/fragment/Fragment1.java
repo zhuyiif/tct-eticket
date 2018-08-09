@@ -117,15 +117,13 @@ public class Fragment1 extends Fragment {
 
         //Initializing the tablayout
         tabLayout = (TabLayout) getActivity().findViewById(R.id.tablayout);
+        initTabView();
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-
-
-                LinearLayout tabLayout1 = (LinearLayout)((ViewGroup) tabLayout.getChildAt(0)).getChildAt(tab.getPosition());
-                TextView tabTextView = (TextView) tabLayout1.getChildAt(1);
-                tabTextView.setTypeface(tabTextView.getTypeface(), Typeface.BOLD);
+                TextView tabTextView = (TextView) tab.getCustomView().findViewById(R.id.tv_tab_name);
+                setTabItemState(tabTextView, true);
 
                 ScrollView scrollView =  getActivity().findViewById(R.id.scrollView);
                 int currentY = scrollView.getScrollY();
@@ -137,11 +135,8 @@ public class Fragment1 extends Fragment {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
-
-                LinearLayout tabLayout1 = (LinearLayout)((ViewGroup) tabLayout.getChildAt(0)).getChildAt(tab.getPosition());
-                TextView tabTextView = (TextView) tabLayout1.getChildAt(1);
-                tabTextView.setTypeface(tabTextView.getTypeface(), Typeface.NORMAL);
-
+                TextView tabTextView = (TextView) tab.getCustomView().findViewById(R.id.tv_tab_name);
+                setTabItemState(tabTextView, false);
             }
 
             @Override
@@ -203,5 +198,38 @@ public class Fragment1 extends Fragment {
 
         viewPager.setAdapter(adapter);
 
+    }
+
+    /**
+     * 设置Tab的样式
+     */
+    private void initTabView() {
+        for (int i = 0; i < tabLayout.getTabCount(); i++) {
+            //依次获取标签
+            TabLayout.Tab tab = tabLayout.getTabAt(i);
+            //为每个标签设置布局
+            tab.setCustomView(R.layout.custom_tab_item);
+            TextView tabTextView = (TextView) tab.getCustomView().findViewById(R.id.tv_tab_name);
+            //为标签填充数据
+            tabTextView.setText(tab.getText());
+            //默认选择第一项
+            if (i == 0) {
+                setTabItemState(tabTextView, true);
+            }else{
+                setTabItemState(tabTextView, false);
+            }
+        }
+    }
+
+    private static final void setTabItemState(TextView tabTextView, boolean selected){
+        if(selected){
+            tabTextView.setSelected(true);
+            tabTextView.setTextSize(15);
+            tabTextView.setTypeface(tabTextView.getTypeface(), Typeface.BOLD);
+        }else{
+            tabTextView.setSelected(false);
+            tabTextView.setTextSize(11);
+            tabTextView.setTypeface(tabTextView.getTypeface(), Typeface.NORMAL);
+        }
     }
 }

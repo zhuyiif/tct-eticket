@@ -27,4 +27,7 @@
     <color name="btn_disable">#4CFFFFFF</color>
     <color name="btn_enabled">#E60012</color>
 
+    <color name="tab_item_text_unselected">#4E4E4E</color>
+    <color name="tab_item_text_selected">#1E1E1E</color>
+
 </resources>

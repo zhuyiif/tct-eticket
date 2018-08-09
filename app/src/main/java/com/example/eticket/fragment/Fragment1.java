@@ -1,19 +1,23 @@
 package com.example.eticket.fragment;
 
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.example.eticket.ListViewAdapter;
 import com.example.eticket.Person;
@@ -118,6 +122,11 @@ public class Fragment1 extends Fragment {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
 
+
+                LinearLayout tabLayout1 = (LinearLayout)((ViewGroup) tabLayout.getChildAt(0)).getChildAt(tab.getPosition());
+                TextView tabTextView = (TextView) tabLayout1.getChildAt(1);
+                tabTextView.setTypeface(tabTextView.getTypeface(), Typeface.BOLD);
+
                 ScrollView scrollView =  getActivity().findViewById(R.id.scrollView);
                 int currentY = scrollView.getScrollY();
 
@@ -128,6 +137,10 @@ public class Fragment1 extends Fragment {
 
             @Override
             public void onTabUnselected(TabLayout.Tab tab) {
+
+                LinearLayout tabLayout1 = (LinearLayout)((ViewGroup) tabLayout.getChildAt(0)).getChildAt(tab.getPosition());
+                TextView tabTextView = (TextView) tabLayout1.getChildAt(1);
+                tabTextView.setTypeface(tabTextView.getTypeface(), Typeface.NORMAL);
 
             }
 

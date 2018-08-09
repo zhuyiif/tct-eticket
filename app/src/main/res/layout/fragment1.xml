@@ -145,7 +145,7 @@
             android:layout_height="17dp"
             android:layout_gravity="center_vertical"
             android:paddingLeft="8dp"
-            android:src="@drawable/notice"/>
+            android:src="@drawable/hot"/>
 
 
     </LinearLayout>
@@ -237,13 +237,19 @@
 
 
 
-
+    <ImageView
+        android:id="@+id/ad_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ad2"
+        android:layout_below="@+id/title1image"
+        />
 
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title1image"
+        android:layout_below="@+id/ad_image"
         android:id="@+id/tabrootlayout">
 
         <android.support.design.widget.TabLayout
@@ -251,12 +257,12 @@
             app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            app:tabBackground="@color/colorPrimary"
+            app:tabBackground="@color/white"
             app:tabGravity="fill"
             app:tabMode="scrollable"
             app:tabIndicatorColor="@color/colorAccent"
-            app:tabSelectedTextColor="@color/colorTextPrimary"
-            app:tabTextColor="@color/colorTextDisable">
+            app:tabSelectedTextColor="@color/black"
+            app:tabTextColor="@color/textgray1">
 
             <android.support.design.widget.TabItem
                 android:id="@+id/tab1"

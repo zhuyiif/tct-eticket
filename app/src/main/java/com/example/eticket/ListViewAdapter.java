@@ -50,7 +50,6 @@ public class ListViewAdapter extends BaseAdapter {
 
             viewHolder.imageViewProfilePic = convertView.findViewById(R.id.imageViewProfilePic);
             viewHolder.textViewName = convertView.findViewById(R.id.textViewName);
-            viewHolder.textViewDescription = convertView.findViewById(R.id.textViewDescription);
 
             convertView.setTag(viewHolder);
         }else{
@@ -58,8 +57,7 @@ public class ListViewAdapter extends BaseAdapter {
         }
         Person person = listPersons.get(position);
 
-        viewHolder.textViewName.setText(person.getFirstName() + " " + person.getLastName());
-        viewHolder.textViewDescription.setText(person.getDescription());
+        viewHolder.textViewName.setText(person.getFirstName());
         viewHolder.imageViewProfilePic.setImageDrawable(getImageDrawable(person.getImageName()));
 
         return convertView;

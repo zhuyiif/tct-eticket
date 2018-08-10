@@ -95,7 +95,7 @@ public class HttpUtils {
         call.enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
-                Log.d("http post","failed in callback");
+                Log.d("http get","failed in callback");
                 cb.onFailure(call,e);
 
             }
@@ -107,6 +107,32 @@ public class HttpUtils {
 
             }
         });
+
+
+    }
+
+    public  void getBanner(final Callback cb)  throws IOException, JSONException {
+
+        Request request = new Request.Builder()
+                .url("https://operator-app.funenc.com/api/slides")
+                .build();
+
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("http get",e.toString());
+                cb.onFailure(call,e);
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                cb.onResponse(call,response);
+            }
+        });
+
+
 
 
     }

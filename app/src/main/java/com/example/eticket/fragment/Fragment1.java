@@ -23,16 +23,25 @@ import com.example.eticket.ListViewAdapter;
 import com.example.eticket.Person;
 import com.example.eticket.R;
 import com.example.eticket.ViewPagerAdapter;
+import com.example.eticket.okhttp.HttpUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tmall.ultraviewpager.UltraViewPager;
 import com.tmall.ultraviewpager.UltraViewPagerAdapter;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 
 public class Fragment1 extends Fragment {
@@ -85,10 +94,10 @@ public class Fragment1 extends Fragment {
     public void onStart() {
         super.onStart();
 
-        UltraViewPager ultraViewPager = (UltraViewPager) getActivity().findViewById(R.id.ultra_viewpager);
+        final UltraViewPager ultraViewPager = (UltraViewPager) getActivity().findViewById(R.id.ultra_viewpager);
         ultraViewPager.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
 //initialize UltraPagerAdapter，and add child view to UltraViewPager
-        PagerAdapter adapter = new UltraPagerAdapter(false);
+        final UltraPagerAdapter adapter = new UltraPagerAdapter(false);
         ultraViewPager.setAdapter(adapter);
 
 //initialize built-in indicator
@@ -105,9 +114,9 @@ public class Fragment1 extends Fragment {
         ultraViewPager.getIndicator().build();
 
 //set an infinite loop
-        ultraViewPager.setInfiniteLoop(true);
+       // ultraViewPager.setInfiniteLoop(true);
 //enable auto-scroll mode
-        ultraViewPager.setAutoScroll(2000);
+       // ultraViewPager.setAutoScroll(2000);
 
 
         //Initializing viewPager
@@ -169,8 +178,73 @@ public class Fragment1 extends Fragment {
         scrollView.smoothScrollTo(0,0);
 
 
+        HttpUtils httpUtils = new HttpUtils();
+
+        try {
+            httpUtils.getBanner(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String responseString = response.body().string();
+                    Log.d("frag1", responseString);
+                    JSONObject respObj = null;
+                    try {
+                        respObj = new JSONObject(responseString);
+                        JSONObject contentObj = respObj.getJSONObject("content");
+                        final JSONArray jArray = contentObj.getJSONArray("list");
 
 
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+
+
+
+                                ArrayList<String> items = new ArrayList<>();
+
+                                for (int i=0; i < jArray.length(); i++)
+                                {
+                                    try {
+                                        JSONObject oneObject = jArray.getJSONObject(i);
+                                        // Pulling items from the array
+                                        String oneObjectsItem = oneObject.getString("cover");
+                                        items.add(oneObjectsItem);
+
+                                    } catch (JSONException e) {
+                                        // Oops
+                                    }
+                                }
+
+                                adapter.addItems(items);
+
+                                ultraViewPager.refresh();
+                                ultraViewPager.getWrapAdapter().notifyDataSetChanged();
+
+
+
+
+                            }
+                        });
+
+
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 
     }

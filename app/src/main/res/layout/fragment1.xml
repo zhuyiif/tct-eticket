@@ -18,7 +18,7 @@
     <com.tmall.ultraviewpager.UltraViewPager
         android:id="@+id/ultra_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="100dp"
         android:background="@android:color/darker_gray" />
 
 

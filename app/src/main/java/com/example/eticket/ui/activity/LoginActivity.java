@@ -5,6 +5,8 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.app.LoaderManager.LoaderCallbacks;
@@ -34,6 +36,8 @@ import android.widget.TextView;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.example.eticket.R;
 import com.example.eticket.okhttp.HttpUtils;
@@ -160,10 +164,35 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
         httpUtils = new HttpUtils();
 
-
+        final Handler countDownHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                if(msg.what<1){
+                    btnCaptcha.setText("重新获取");
+                    btnCaptcha.setEnabled(true);
+                }else{
+                    btnCaptcha.setText(msg.what+"s后重新获取");
+                }
+                super.handleMessage(msg);
+            }
+        };
         btnCaptcha.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 Log.d("login", "code button click");
+                btnCaptcha.setEnabled(false);
+                final Timer timer = new Timer();
+                timer.scheduleAtFixedRate(new TimerTask() {
+                    int downTime = 60;
+                    @Override
+                    public void run() {
+                        countDownHandler.sendEmptyMessage(downTime);
+                        if(downTime<1){
+                            timer.cancel();
+                            return;
+                        }
+                        downTime--;
+                    }
+                }, 0, 1000);
 
                 try {
                     httpUtils.postGetSMSCode(mIdentityView.getText().toString().trim());

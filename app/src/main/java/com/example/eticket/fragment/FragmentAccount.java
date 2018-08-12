@@ -14,6 +14,7 @@ import com.example.eticket.R;
 import com.example.eticket.engine.AppEngine;
 import com.example.eticket.storage.AppStore;
 import com.example.eticket.ui.activity.LoginActivity;
+import com.example.eticket.ui.activity.TopUpActivity;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -67,5 +68,10 @@ public class FragmentAccount extends Fragment {
     public void onResume() {
         super.onResume();
         refreshPage();
+    }
+
+    @OnClick(R.id.addBalance)
+    public void onAddBalance(View btn){
+        startActivity(new Intent().setClass(getContext(), TopUpActivity.class));
     }
 }

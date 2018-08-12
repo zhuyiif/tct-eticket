@@ -30,4 +30,7 @@
     <color name="tab_item_text_unselected">#4E4E4E</color>
     <color name="tab_item_text_selected">#1E1E1E</color>
 
+    <color name="hint_text">#B5B5B5</color>
+    <color name="notice_text">#747474</color>
+
 </resources>

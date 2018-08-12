@@ -1,0 +1,318 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.eticket.ui.activity.TopUpActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="158dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="141dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/top_up_top_bg"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginHorizontal="8dp"
+                android:layout_marginTop="8dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="left|center_vertical">
+
+                    <View
+                        android:id="@+id/back"
+                        android:layout_width="11dp"
+                        android:layout_height="11dp"
+                        android:background="@drawable/back" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="余额充值"
+                    android:textColor="@color/white"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="交易记录"
+                    android:textColor="@color/white"
+                    android:textSize="11sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:layout_marginLeft="11dp"
+                android:textSize="9sp"
+                android:textColor="@color/white"
+                android:text="余额(元)"/>
+
+            <TextView
+                android:id="@+id/balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="11dp"
+                android:textSize="25sp"
+                android:textColor="@color/white"
+                android:text="0.00"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/top_up_amount_bg"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="金额:"
+                android:textColor="@color/tab_item_text_unselected"
+                android:textSize="9sp" />
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="17dp"
+                android:layout_marginHorizontal="8dp"
+                android:background="@drawable/top_up_amount_separator" />
+
+            <EditText
+                android:id="@+id/editAmount"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="请输入您要充值的金额"
+                android:inputType="numberDecimal"
+                android:textColorHint="@color/hint_text"
+                android:background="@color/white"
+                android:textSize="11sp" />
+
+            <Button
+                android:id="@+id/text_remove"
+                android:layout_width="8dp"
+                android:layout_height="8dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/text_remove" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="71dp"
+        android:layout_marginTop="11dp"
+        android:background="@drawable/top_up_amount_btn_group_bg"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="4dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/amount_100"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_amount_selector"
+                android:text="100" />
+
+            <Button
+                android:id="@+id/amount_50"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_amount_selector"
+                android:text="50" />
+
+            <Button
+                android:id="@+id/amount_30"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_amount_selector"
+                android:text="30" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="4dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/amount_20"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_amount_selector"
+                android:text="20" />
+
+            <Button
+                android:id="@+id/amount_10"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_amount_selector"
+                android:text="10" />
+
+            <Button
+                android:id="@+id/amount_5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp"
+                android:layout_weight="1"
+                android:background="@drawable/btn_amount_selector"
+                android:text="5" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="11dp"
+        android:layout_marginTop="21dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:background="@drawable/alipay_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:text="支付宝"
+            android:textColor="@color/tab_item_text_unselected"
+            android:textSize="9sp" />
+
+        <Button
+            android:id="@+id/btn_alipay"
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:background="@drawable/choice_amount_selector" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="11dp"
+        android:layout_marginTop="21dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:background="@drawable/wechat_icon" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:text="微信"
+            android:textColor="@color/hint_text"
+            android:textSize="9sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="1"
+            android:text="(暂未开通)"
+            android:textColor="@color/hint_text"
+            android:textSize="8sp" />
+
+        <Button
+            android:layout_width="11dp"
+            android:layout_height="11dp"
+            android:background="@drawable/choice_amount_selector" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginHorizontal="8dp"
+        android:layout_marginTop="21dp"
+        android:background="@drawable/top_up_line_separator" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="9dp"
+            android:singleLine="true"
+            android:text="点击充值，即表示已阅读并同意 "
+            android:textColor="@color/notice_text"
+            android:textSize="8sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="充值协议"
+            android:textColor="@color/btn_enabled"
+            android:textSize="8sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:layout_marginTop="59dp"
+        android:gravity="center"
+        android:background="@drawable/btn_top_up_bg"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btn_top_up"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:background="@drawable/btn_top_up" />
+    </LinearLayout>
+
+</LinearLayout>

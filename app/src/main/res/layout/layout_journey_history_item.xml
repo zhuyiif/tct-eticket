@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/dateContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="1dp"
+                android:background="@color/grey_line" />
+
+            <View
+                android:layout_width="3dp"
+                android:layout_height="3dp"
+                android:layout_marginTop="3dp"
+                android:background="@drawable/dot" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:layout_marginLeft="8dp"
+            android:background="@drawable/journey_history_item_date_bg"
+            android:gravity="center"
+            android:text="08月30日"
+            android:textColor="@color/white"
+            android:textSize="11sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="11dp"
+        android:layout_marginRight="11dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="@color/grey_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="59dp"
+            android:background="@drawable/journey_history_item_detail_bg"
+            android:layout_marginBottom="6dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="13dp"
+                        android:layout_marginLeft="9dp"
+                        android:background="@drawable/location_icon" />
+
+                    <TextView
+                        android:id="@+id/inStationName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:textSize="9sp"
+                        android:textColor="@color/tab_item_text_unselected"
+                        android:text="小寨" />
+
+                    <LinearLayout
+                        android:id="@+id/outStation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <View
+                            android:layout_width="9dp"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="8dp"
+                            android:background="@color/tab_item_text_unselected"/>
+
+                        <TextView
+                            android:id="@+id/outStationName"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:textSize="9sp"
+                            android:textColor="@color/tab_item_text_unselected"
+                            android:text="大明宫西" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"/>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="8dp">
+
+                        <TextView
+                            android:id="@+id/status_payed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textSize="8sp"
+                            android:textColor="#51C025"
+                            android:text="已支付"
+                            android:visibility="gone"/>
+                        <TextView
+                            android:id="@+id/status_going"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textSize="8sp"
+                            android:textColor="#E2A908"
+                            android:text="进行中"
+                            android:visibility="gone"/>
+                        <TextView
+                            android:id="@+id/status_exception"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textSize="8sp"
+                            android:textColor="#EA2D18"
+                            android:text="异常"
+                            android:visibility="gone"/>
+                        <TextView
+                            android:id="@+id/status_to_pay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textSize="8sp"
+                            android:textColor="#E2681D"
+                            android:text="待支付"
+                            android:visibility="gone"/>
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginRight="8dp"
+                    android:background="@color/grey_line" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <View
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
+                        android:layout_marginLeft="9dp"
+                        android:background="@drawable/time_icon" />
+
+                    <TextView
+                        android:id="@+id/inDealTime"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="6dp"
+                        android:textSize="9sp"
+                        android:textColor="@color/tab_item_text_unselected"
+                        android:text="06:57" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:textColor="@color/notice_text"
+                        android:textSize="8sp"
+                        android:text="进站" />
+
+                    <LinearLayout
+                        android:id="@+id/outDeal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+                        <View
+                            android:layout_width="9dp"
+                            android:layout_height="1dp"
+                            android:layout_marginLeft="8dp"
+                            android:background="@color/tab_item_text_unselected"/>
+
+                        <TextView
+                            android:id="@+id/outDealTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="8dp"
+                            android:textSize="9sp"
+                            android:textColor="@color/tab_item_text_unselected"
+                            android:text="08:12" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:layout_marginLeft="3dp"
+                            android:textColor="@color/notice_text"
+                            android:textSize="8sp"
+                            android:text="出站" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

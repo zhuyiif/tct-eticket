@@ -33,4 +33,6 @@
     <color name="hint_text">#B5B5B5</color>
     <color name="notice_text">#747474</color>
 
+    <color name="grey_line">#969696</color>
+
 </resources>

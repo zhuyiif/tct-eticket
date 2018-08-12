@@ -8,7 +8,7 @@ import android.view.Window;
 
 import com.example.eticket.engine.AppEngine;
 import com.example.eticket.fragment.Fragment1;
-import com.example.eticket.fragment.Fragment2;
+import com.example.eticket.fragment.FragmentJourneyHistory;
 import com.example.eticket.fragment.Fragment3;
 import com.example.eticket.fragment.Fragment4;
 import com.example.eticket.fragment.FragmentAccount;
@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                         "首页",
                         R.drawable.item1_before,
                         R.drawable.item1_after)
-                .addItem(Fragment2.class,
+                .addItem(FragmentJourneyHistory.class,
                         "行程",
                         R.drawable.routes_before,
                         R.drawable.item2_after)

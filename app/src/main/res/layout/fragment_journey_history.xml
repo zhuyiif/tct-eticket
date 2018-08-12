@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:paddingHorizontal="8dp"
+        android:gravity="center"
+        android:background="@drawable/journey_history_top_bg"
+        android:orientation="horizontal">
+
+        <View
+            android:id="@+id/dateChooser"
+            android:layout_width="13dp"
+            android:layout_height="13dp"
+            android:background="@drawable/date"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="@color/white"
+            android:text="我的行程"/>
+        <View
+            android:layout_width="17dp"
+            android:layout_height="16dp"
+            android:background="@drawable/message"/>
+
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <com.example.eticket.ui.component.ListViewForScrollView
+            android:id="@+id/journeyHistory"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@null"></com.example.eticket.ui.component.ListViewForScrollView>
+    </ScrollView>
+</LinearLayout>

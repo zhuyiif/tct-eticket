@@ -4,21 +4,35 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.example.eticket.R;
 import com.example.eticket.engine.AppEngine;
+import com.example.eticket.model.User;
+import com.example.eticket.okhttp.HttpUtils;
 import com.example.eticket.storage.AppStore;
 import com.example.eticket.ui.activity.LoginActivity;
 import com.example.eticket.ui.activity.TopUpActivity;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class FragmentAccount extends Fragment {
     @InjectView(R.id.logged_bg)
@@ -29,6 +43,15 @@ public class FragmentAccount extends Fragment {
     LinearLayout allMileages;
     @InjectView(R.id.login)
     Button btLogin;
+    @InjectView(R.id.mileage)
+    TextView milesText;
+    @InjectView(R.id.balance)
+    TextView balanceText;
+    @InjectView(R.id.award)
+    TextView awardText;
+
+
+    HttpUtils httpUtils = new HttpUtils();
 
     @Nullable
     @Override
@@ -56,6 +79,60 @@ public class FragmentAccount extends Fragment {
             bgPersonalDataLogged.setVisibility(View.VISIBLE);
             allMileages.setVisibility(View.VISIBLE);
             btLogin.setVisibility(View.GONE);
+
+            //get me info
+
+            try {
+                String token = AppStore.getToken(getActivity().getApplicationContext());
+                Log.d("gettoken", token);
+                httpUtils.getMe(token,new Callback() {
+                    @Override
+                    public void onFailure(Call call, IOException e) {
+
+                    }
+
+                    @Override
+                    public void onResponse(Call call, Response response) throws IOException {
+
+                        String responseString = response.body().string();
+                        Log.d("getme", responseString);
+
+                        JSONObject respObj = null;
+                        try {
+                            respObj = new JSONObject(responseString);
+                            JSONObject contentObj = respObj.getJSONObject("content");
+                            Log.d("contentobj",contentObj.toString());
+
+                           //respObj.getJSONObject("user").toString();
+                            Gson gson = new GsonBuilder().create();
+                           final User me =  gson.fromJson(contentObj.getJSONObject("user").toString(), User.class);
+                            Log.d("me",me.getPhone());
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    milesText.setText(Float.toString(me.getMileage()));
+                                    balanceText.setText(Float.toString(me.getScore()));
+
+                                }
+                            });
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        Log.d("login", respObj.toString());
+
+
+
+
+
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         }else {
             bgLogged.setVisibility(View.GONE);
             bgPersonalDataLogged.setVisibility(View.GONE);

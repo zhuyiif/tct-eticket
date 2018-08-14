@@ -2,6 +2,8 @@ package com.example.eticket.okhttp;
 
 import android.util.Log;
 
+import com.example.eticket.storage.AppStore;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -136,6 +138,36 @@ public class HttpUtils {
 
 
     }
+
+    public  void getMe(String token,final Callback cb)  throws IOException, JSONException {
+
+
+        Request request = new Request.Builder()
+                .url("https://operator-app.funenc.com/api/users/me")
+                .addHeader("app-token", token)
+                .build();
+
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("get me",e.toString());
+                cb.onFailure(call,e);
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                cb.onResponse(call,response);
+            }
+        });
+
+
+
+
+    }
+
+
 
 
 }

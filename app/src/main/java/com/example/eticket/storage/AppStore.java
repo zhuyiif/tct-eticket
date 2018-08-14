@@ -61,4 +61,10 @@ public class AppStore {
 
     }
 
+    public static String getToken(Context context) {
+        SharedPreferences sp = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE);
+        String user_id = sp.getString(TOKEN, "");
+        return user_id;
+    }
+
 }

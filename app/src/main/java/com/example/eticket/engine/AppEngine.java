@@ -3,6 +3,7 @@ package com.example.eticket.engine;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.eticket.model.User;
 import com.example.eticket.okhttp.HttpUtils;
 import com.example.eticket.storage.AppStore;
 
@@ -17,11 +18,13 @@ import okhttp3.Response;
 
 public class AppEngine {
     private static Context appContext = null;
+    public User me;
     public static void init(Context context){
         if(appContext==null) {
             appContext = context;
         }
     }
+
 
     public static void login(String id, String verifyKey, final LoginCallback callback){
         HttpUtils httpUtils = new HttpUtils();

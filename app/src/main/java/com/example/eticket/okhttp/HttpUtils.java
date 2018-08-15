@@ -141,7 +141,6 @@ public class HttpUtils {
 
     public  void getMe(String token,final Callback cb)  throws IOException, JSONException {
 
-
         Request request = new Request.Builder()
                 .url("https://operator-app.funenc.com/api/users/me")
                 .addHeader("app-token", token)
@@ -162,10 +161,32 @@ public class HttpUtils {
             }
         });
 
+    }
 
+    public  void getHeadlineCate(final Callback cb)  throws IOException, JSONException {
 
+        Request request = new Request.Builder()
+                .url("https://operator-app.funenc.com/api/headline/categories")
+                .build();
+
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("get headline categorey",e.toString());
+                cb.onFailure(call,e);
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                cb.onResponse(call,response);
+            }
+        });
 
     }
+
+
 
 
 

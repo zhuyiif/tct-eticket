@@ -23,6 +23,7 @@ import com.example.eticket.ListViewAdapter;
 import com.example.eticket.Person;
 import com.example.eticket.R;
 import com.example.eticket.ViewPagerAdapter;
+import com.example.eticket.model.HeadlineCateItem;
 import com.example.eticket.okhttp.HttpUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -36,6 +37,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -59,6 +61,8 @@ public class Fragment1 extends Fragment {
     Fragment8 testFragment8;
     Fragment9 testFragment9;
     Fragment10 testFragment10;
+
+    private  ArrayList<HeadlineCateItem> headlineCateItems = new ArrayList<>();
 
     @Nullable
     @Override
@@ -93,6 +97,7 @@ public class Fragment1 extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+        HttpUtils httpUtils = new HttpUtils();
 
         final UltraViewPager ultraViewPager = (UltraViewPager) getActivity().findViewById(R.id.ultra_viewpager);
         ultraViewPager.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
@@ -126,33 +131,89 @@ public class Fragment1 extends Fragment {
 
         //Initializing the tablayout
         tabLayout = (TabLayout) getActivity().findViewById(R.id.tablayout);
-        initTabView();
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                TextView tabTextView = (TextView) tab.getCustomView().findViewById(R.id.tv_tab_name);
-                setTabItemState(tabTextView, true);
 
-                ScrollView scrollView =  getActivity().findViewById(R.id.scrollView);
-                int currentY = scrollView.getScrollY();
+        try {
+            httpUtils.getHeadlineCate(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
 
-                viewPager.setCurrentItem(tab.getPosition(),false);
-                scrollView.smoothScrollTo(0,currentY);
+                }
 
-            }
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String responseString = response.body().string();
+                    Log.d("get headline", responseString);
 
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-                TextView tabTextView = (TextView) tab.getCustomView().findViewById(R.id.tv_tab_name);
-                setTabItemState(tabTextView, false);
-            }
+                    JSONObject respObj = null;
+                    try {
+                        respObj = new JSONObject(responseString);
+                        JSONObject contentObj = respObj.getJSONObject("content");
+                        final JSONArray jArray = contentObj.getJSONArray("list");
 
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+                        Gson gson = new Gson();
+                        Type headCateType = new TypeToken<List<HeadlineCateItem>>() {
+                        }.getType();
 
-            }
-        });
+                        headlineCateItems =  gson.fromJson(jArray.toString(), headCateType);
+
+
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tabLayout.removeAllTabs();
+
+                                for (int i = 0; i < headlineCateItems.size(); i++) {
+                                    tabLayout.addTab(tabLayout.newTab().setText(headlineCateItems.get(i).getTitle()));
+                                }
+
+
+                                initTabView();
+
+                                tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+                                    @Override
+                                    public void onTabSelected(TabLayout.Tab tab) {
+                                        TextView tabTextView = (TextView) tab.getCustomView().findViewById(R.id.tv_tab_name);
+                                        setTabItemState(tabTextView, true);
+
+                                        ScrollView scrollView =  getActivity().findViewById(R.id.scrollView);
+                                        int currentY = scrollView.getScrollY();
+
+                                        viewPager.setCurrentItem(tab.getPosition(),false);
+                                        scrollView.smoothScrollTo(0,currentY);
+
+                                    }
+
+                                    @Override
+                                    public void onTabUnselected(TabLayout.Tab tab) {
+                                        TextView tabTextView = (TextView) tab.getCustomView().findViewById(R.id.tv_tab_name);
+                                        setTabItemState(tabTextView, false);
+                                    }
+
+                                    @Override
+                                    public void onTabReselected(TabLayout.Tab tab) {
+
+                                    }
+                                });
+
+                            }
+                        });
+
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+
+                }
+            });
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -178,7 +239,7 @@ public class Fragment1 extends Fragment {
         scrollView.smoothScrollTo(0,0);
 
 
-        HttpUtils httpUtils = new HttpUtils();
+
 
         try {
             httpUtils.getBanner(new Callback() {
@@ -202,8 +263,6 @@ public class Fragment1 extends Fragment {
                             @Override
                             public void run() {
 
-
-
                                 ArrayList<String> items = new ArrayList<>();
 
                                 for (int i=0; i < jArray.length(); i++)
@@ -224,12 +283,8 @@ public class Fragment1 extends Fragment {
                                 ultraViewPager.refresh();
                                 ultraViewPager.getWrapAdapter().notifyDataSetChanged();
 
-
-
-
                             }
                         });
-
 
 
 

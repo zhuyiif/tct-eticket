@@ -25,6 +25,9 @@ public class AppEngine {
         }
     }
 
+    public static Context getSystemContext(){
+        return appContext;
+    }
 
     public static void login(String id, String verifyKey, final LoginCallback callback){
         HttpUtils httpUtils = new HttpUtils();

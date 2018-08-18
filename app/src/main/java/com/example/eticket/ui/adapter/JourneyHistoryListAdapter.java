@@ -63,9 +63,12 @@ public class JourneyHistoryListAdapter extends BaseAdapter {
             convertView.findViewById(R.id.outDeal).setVisibility(View.GONE);
         } else {
             TextView tvOutDealTime = convertView.findViewById(R.id.outDealTime);
-            tvInDealTime.setText(item.getOutDealTime());
+            tvOutDealTime.setText(item.getOutDealTime());
         }
         switch (item.getStatus()) {
+            case COMPLETE:
+                convertView.findViewById(R.id.status_complete).setVisibility(View.VISIBLE);
+                break;
             case PAYED:
                 convertView.findViewById(R.id.status_payed).setVisibility(View.VISIBLE);
                 break;

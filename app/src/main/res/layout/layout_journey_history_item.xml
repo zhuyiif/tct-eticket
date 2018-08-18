@@ -128,13 +128,22 @@
                         android:layout_marginRight="8dp">
 
                         <TextView
+                            android:id="@+id/status_complete"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:textSize="8sp"
+                            android:textColor="#51C025"
+                            android:text="@string/complete"
+                            android:visibility="gone"/>
+                        <TextView
                             android:id="@+id/status_payed"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
                             android:textSize="8sp"
                             android:textColor="#51C025"
-                            android:text="已支付"
+                            android:text="@string/payed"
                             android:visibility="gone"/>
                         <TextView
                             android:id="@+id/status_going"
@@ -143,7 +152,7 @@
                             android:gravity="center_vertical"
                             android:textSize="8sp"
                             android:textColor="#E2A908"
-                            android:text="进行中"
+                            android:text="@string/going"
                             android:visibility="gone"/>
                         <TextView
                             android:id="@+id/status_exception"
@@ -152,7 +161,7 @@
                             android:gravity="center_vertical"
                             android:textSize="8sp"
                             android:textColor="#EA2D18"
-                            android:text="异常"
+                            android:text="@string/exception"
                             android:visibility="gone"/>
                         <TextView
                             android:id="@+id/status_to_pay"
@@ -161,7 +170,7 @@
                             android:gravity="center_vertical"
                             android:textSize="8sp"
                             android:textColor="#E2681D"
-                            android:text="待支付"
+                            android:text="@string/to_pay"
                             android:visibility="gone"/>
                     </LinearLayout>
 

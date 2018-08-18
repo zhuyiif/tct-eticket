@@ -1,41 +1,87 @@
 package com.example.eticket.ui.pojo;
 
+import android.content.res.Resources;
+
+import com.example.eticket.R;
+import com.example.eticket.engine.AppEngine;
+import com.example.eticket.util.StringUtils;
+
 import java.util.Date;
 
 public class JourneyHistoryItem {
-    public enum JourneyStatus{
-        PAYED, GOING, TO_PAY, EXCEPTION
+    public enum JourneyStatus {
+        COMPLETE(AppEngine.getSystemContext().getString(R.string.complete)),
+        PAYED(AppEngine.getSystemContext().getString(R.string.payed)),
+        GOING(AppEngine.getSystemContext().getString(R.string.going)),
+        TO_PAY(AppEngine.getSystemContext().getString(R.string.to_pay)),
+        EXCEPTION(AppEngine.getSystemContext().getString(R.string.exception));
+        String statusDesc;
+
+        private JourneyStatus(String statusDesc) {
+            this.statusDesc = statusDesc;
+        }
+
+        @Override
+        public String toString() {
+            return statusDesc;
+        }
+
+        public static JourneyStatus convert(String statusDesc){
+            for(JourneyStatus status:values()){
+                if(status.statusDesc.equals(statusDesc)){
+                    return status;
+                }
+            }
+            return EXCEPTION;
+        }
     }
+
     public static class Builder {
         JourneyHistoryItem item = new JourneyHistoryItem();
-        public Builder journeyDate(Date date){
+
+        public Builder journeyDate(Date date) {
             item.setJourneyDate(date);
             return this;
         }
-        public Builder inStationName(String name){
+
+        public Builder inStationName(String name) {
             item.setInStationName(name);
             return this;
         }
-        public Builder outStationName(String name){
+
+        public Builder outStationName(String name) {
             item.setOutStationName(name);
             return this;
         }
-        public Builder status(JourneyStatus status){
+
+        public Builder status(JourneyStatus status) {
             item.setStatus(status);
             return this;
         }
-        public Builder inDealTime(String time){
+
+        public Builder status(String status) {
+            if (StringUtils.isBlank(status)) {
+                item.setStatus(JourneyStatus.PAYED);
+            }
+            item.setStatus(JourneyStatus.convert(status));
+            return this;
+        }
+
+        public Builder inDealTime(String time) {
             item.setInDealTime(time);
             return this;
         }
-        public Builder outDealTime(String time){
+
+        public Builder outDealTime(String time) {
             item.setOutDealTime(time);
             return this;
         }
-        public JourneyHistoryItem build(){
+
+        public JourneyHistoryItem build() {
             return item;
         }
     }
+
     private Date journeyDate;
     private String inStationName;
     private String outStationName;

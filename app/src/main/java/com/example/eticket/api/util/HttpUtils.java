@@ -8,6 +8,9 @@ import java.net.URLEncoder;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * from org.apache.cxf.jaxrs.utils.HttpUtils
+ */
 public class HttpUtils {
     private static final String[] RESERVED_CHARS = {"+"};
     private static final String[] ENCODED_CHARS = {"%2b"};

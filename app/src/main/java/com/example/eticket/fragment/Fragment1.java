@@ -3,10 +3,14 @@ package com.example.eticket.fragment;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.util.TypedValue;
@@ -14,12 +18,9 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.example.eticket.ListViewAdapter;
 import com.example.eticket.Person;
 import com.example.eticket.R;
 import com.example.eticket.ViewPagerAdapter;
@@ -28,7 +29,6 @@ import com.example.eticket.okhttp.HttpUtils;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tmall.ultraviewpager.UltraViewPager;
-import com.tmall.ultraviewpager.UltraViewPagerAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -40,6 +40,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedSet;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -54,15 +55,11 @@ public class Fragment1 extends Fragment {
     //This is our viewPager
     private ViewPager viewPager;
 
-    ViewPagerAdapter adapter;
-
-    Fragment6 testFragment6;
-    Fragment7 testFragment7;
-    Fragment8 testFragment8;
-    Fragment9 testFragment9;
-    Fragment10 testFragment10;
+    HeadlinePagerAdapter headlineAdapter;
 
     private  ArrayList<HeadlineCateItem> headlineCateItems = new ArrayList<>();
+    private SortedSet<Integer> categoryIdSet;
+    private Handler headlineCategoryUpdateHandler;
 
     @Nullable
     @Override
@@ -73,24 +70,9 @@ public class Fragment1 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Log.d("ViewPagerAdapter", "init");
 
-        adapter = new ViewPagerAdapter(getChildFragmentManager());
-        testFragment6=new Fragment6();
-        adapter.addFragment(testFragment6,"6");
-
-        testFragment7=new Fragment7();
-        adapter.addFragment(testFragment7,"7");
-
-        testFragment8=new Fragment8();
-        adapter.addFragment(testFragment8,"8");
-
-        testFragment9 = new Fragment9();
-        adapter.addFragment(testFragment9,"9");
-
-        testFragment10 = new Fragment10();
-        adapter.addFragment(testFragment10,"10");
-
-
+        headlineAdapter = new HeadlinePagerAdapter(getChildFragmentManager());
 
     }
 
@@ -98,6 +80,21 @@ public class Fragment1 extends Fragment {
     public void onStart() {
         super.onStart();
         HttpUtils httpUtils = new HttpUtils();
+
+        headlineCategoryUpdateHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+//                for (int i = 0; i < headlineCateItems.size(); i++) {
+//                    HeadlineCateItem headlineCateItem = headlineCateItems.get(i);
+//                    Fragment fragment = new FragmentHeadlineList();
+//                    Bundle args = new Bundle();
+//                    args.putInt(FragmentHeadlineList.CATEGORY_ID_KEY, headlineCateItem.getId());
+//                    fragment.setArguments(args);
+//                }
+                headlineAdapter.notifyDataSetChanged();
+                super.handleMessage(msg);
+            }
+        };
 
         final UltraViewPager ultraViewPager = (UltraViewPager) getActivity().findViewById(R.id.ultra_viewpager);
         ultraViewPager.setScrollMode(UltraViewPager.ScrollMode.HORIZONTAL);
@@ -169,6 +166,7 @@ public class Fragment1 extends Fragment {
 
 
                                 initTabView();
+                                headlineCategoryUpdateHandler.sendEmptyMessage(headlineCateItems.size());
 
                                 tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                                     @Override
@@ -325,7 +323,7 @@ public class Fragment1 extends Fragment {
     private void setupViewPager(ViewPager viewPager)
     {
 
-        viewPager.setAdapter(adapter);
+        viewPager.setAdapter(headlineAdapter);
 
     }
 
@@ -359,6 +357,101 @@ public class Fragment1 extends Fragment {
             tabTextView.setSelected(false);
             tabTextView.setTextSize(11);
             tabTextView.setTypeface(tabTextView.getTypeface(), Typeface.NORMAL);
+        }
+    }
+
+    private static String makeFragmentName(int viewId, long id) {
+        return "android:switcher:" + viewId + ":" + id;
+    }
+
+    private List<Boolean> fragmentsUpdateFlag = new ArrayList<Boolean>();
+    /**
+     * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
+     * one of the sections/tabs/pages.
+     */
+    public class HeadlinePagerAdapter extends FragmentPagerAdapter {
+        private List<Fragment> fragmentList;
+
+        public HeadlinePagerAdapter(FragmentManager fm) {
+            super(fm);
+            fragmentList = new ArrayList<Fragment>(headlineCateItems.size());
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            Fragment fragment = null;
+            Bundle args = new Bundle();
+
+            if (headlineCateItems.size() > position) {
+                fragment = new FragmentHeadlineList();
+                args.putInt(FragmentHeadlineList.CATEGORY_ID_KEY, headlineCateItems.get(position).getId());
+                fragment.setArguments(args);
+            }else{
+                fragment = new Fragment();
+            }
+            if (position >= fragmentList.size()) {
+                fragmentList.add(fragment);
+            } else {
+                fragmentList.remove(position);
+                fragmentList.add(position, fragment);
+            }
+            if (fragmentsUpdateFlag.size() > position) {
+                fragmentsUpdateFlag.set(position, false);
+            }
+            // getItem is called to instantiate the fragment for the given page.
+            // Return a PlaceholderFragment (defined as a static inner class below).
+            return fragment;
+        }
+
+        @Override
+        public int getItemPosition(Object object){
+            for(int pos =0;pos<fragmentList.size();++pos){
+                if(object.equals(fragmentList.get(pos))){
+                    if(fragmentsUpdateFlag.get(pos)){
+                        return POSITION_NONE;
+                    }
+                }
+            }
+            return POSITION_UNCHANGED;
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+//得到缓存的fragment
+            Fragment fragment = (Fragment) super.instantiateItem(container,
+                    position);
+//得到tag，这点很重要
+            String fragmentTag = fragment.getTag();
+
+
+            if (fragmentsUpdateFlag.size() > 0 && fragmentsUpdateFlag.get(position % fragmentsUpdateFlag.size())) {
+//如果这个fragment需要更新
+
+                FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+//移除旧的fragment
+                ft.remove(fragment);
+//换成新的fragment
+                fragment = getItem(position);
+//添加新fragment时必须用前面获得的tag，这点很重要
+                ft.add(container.getId(), fragment, fragmentTag);
+                ft.attach(fragment);
+                ft.commit();
+
+//复位更新标志
+                fragmentsUpdateFlag.set(position % fragmentsUpdateFlag.size(), false);
+            }
+
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return headlineCateItems.size();
+        }
+
+        @Override
+        public CharSequence getPageTitle(int position) {
+            return headlineCateItems.get(position).getTitle();
         }
     }
 }

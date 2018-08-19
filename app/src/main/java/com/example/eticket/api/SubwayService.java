@@ -11,8 +11,7 @@ import javax.ws.rs.core.MediaType;
 
 @Path("/api")
 public interface SubwayService {
-    @GET
-    String getAccessCode(String token);
+    public static final String BASE_ADDR = "https://scan-app.funenc.com/";
 
     @GET
     @Path("/records")

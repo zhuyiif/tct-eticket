@@ -51,15 +51,15 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
-public class ApiUtils {
+public class ApiFactory {
     private static final String SLASH = "/";
     private OkHttpClient client;
 
-    public ApiUtils() {
+    public ApiFactory() {
         client = new OkHttpClient();
     }
 
-    public ApiUtils(HttpUtils httpUtils){
+    public ApiFactory(HttpUtils httpUtils){
         client = httpUtils.client;
     }
 
@@ -88,9 +88,8 @@ public class ApiUtils {
 
     }
 
-    public SubwayService getSubwayService(final Callback cb) {
+    public <T> T createService(final String baseAddress, final Class<T> sClass, final Callback cb) {
         if (isNetworkAvailable(AppEngine.getSystemContext())) {
-            final String baseAddress = "https://scan-app.funenc.com/";
 
 //            List<Object> providerList = new ArrayList<Object>();
 //            providerList.add(new JacksonJsonProvider());
@@ -99,20 +98,20 @@ public class ApiUtils {
 //            VersionInfo latestVersion = subwayService.getLatestVersion();
 //            System.out.println(latestVersion.getVersionName());
 //            return latestVersion.getVersionName();
-        final ClassResourceInfo cri = createResourceInfo(SubwayService.class);
+        final ClassResourceInfo cri = createResourceInfo(sClass);
 //        for(Method m:SubwayService.class.getMethods()){
 //            m.getDeclaredAnnotations();
 //        }
-            SubwayService service = SubwayService.class.cast(Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class[]{SubwayService.class}, new InvocationHandler(){
+            T service = sClass.cast(Proxy.newProxyInstance(Thread.currentThread().getContextClassLoader(), new Class[]{sClass}, new InvocationHandler(){
                 @Override
                 public Object invoke(Object proxy, final Method method, Object[] params) throws Throwable {
 //                    Log.d("proxy=", proxy.toString());
 //                    Log.d("method=", method.toGenericString());
-                    Log.d("SubwayService Proxy", "begin to call " + method.getName());
+                    Log.d(sClass.getSimpleName()+ " Proxy", "begin to call " + method.getName());
                     if(proxy == null){
-                        Log.d("SubwayService Proxy", "proxy is null");
+                        Log.d(sClass.getSimpleName()+ " Proxy", "proxy is null");
                     }else{
-                        Log.d("SubwayService Proxy", "proxy is not null");
+                        Log.d(sClass.getSimpleName()+ " Proxy", "proxy is not null");
                         Log.d("Proxy is called by", proxy.getClass().getName());
                     }
                     Log.d("Proxy is actually", method.getDeclaringClass().getName());

@@ -1,14 +1,14 @@
 package com.example.eticket.model;
 
 public class HeadlineCateItem {
-    private float id;
+    private int id;
     private String title;
     private String createdAt;
     private String updatedAt;
 
 
     // Getter Methods
-    public float getId() {
+    public int getId() {
         return id;
     }
 
@@ -26,7 +26,7 @@ public class HeadlineCateItem {
 
     // Setter Methods
 
-    public void setId( float id ) {
+    public void setId( int id ) {
         this.id = id;
     }
 

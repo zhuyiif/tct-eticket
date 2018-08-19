@@ -13,10 +13,10 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.eticket.R;
+import com.example.eticket.api.SubwayService;
 import com.example.eticket.model.Journey;
 import com.example.eticket.model.JourneyListResponse;
-import com.example.eticket.okhttp.ApiUtils;
-import com.example.eticket.storage.AppStore;
+import com.example.eticket.okhttp.ApiFactory;
 import com.example.eticket.ui.adapter.JourneyHistoryListAdapter;
 import com.example.eticket.ui.pojo.JourneyHistoryItem;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -115,13 +115,13 @@ public class FragmentJourneyHistory extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        ApiUtils apiUtils = new ApiUtils();
+        ApiFactory apiFactory = new ApiFactory();
         // a test token as default
         String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTMwNDk4MDE5fQ.5q75yMd0uCB5p3GhCUV4-YzvLvT19IyFAqi0yuDvM3o";
-        if(AppStore.isLogin(getContext())){
-            token = AppStore.getToken(getContext());
-        }
-        apiUtils.getSubwayService(new Callback() {
+//        if(AppStore.isLogin(getContext())){
+//            token = AppStore.getToken(getContext());
+//        }
+        apiFactory.createService(SubwayService.BASE_ADDR, SubwayService.class, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 Log.e("FragmentJourneyHistory", "Load error", e);

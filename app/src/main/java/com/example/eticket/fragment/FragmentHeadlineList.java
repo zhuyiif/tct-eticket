@@ -50,7 +50,7 @@ public class FragmentHeadlineList extends Fragment {
 
         final View multiTabLayout =  getActivity().findViewById(R.id.tabrootlayout);
 
-        listView = getActivity().findViewById(R.id.listView);
+        listView = getView().findViewById(R.id.listView);
         headlineListViewAdapter = new HeadlineListViewAdapter(getContext());
         listView.setAdapter(headlineListViewAdapter);
         updateHandler = new Handler(){

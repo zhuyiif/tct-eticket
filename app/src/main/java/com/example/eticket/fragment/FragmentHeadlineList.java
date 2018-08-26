@@ -73,10 +73,12 @@ public class FragmentHeadlineList extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 String body = response.body().string();
                 Log.i("HeadlineList response", body);
-                ObjectMapper mapper = new ObjectMapper();
-                HeadlineListResponse result = mapper.readValue(body, HeadlineListResponse.class);
-                headlineListViewAdapter.appendHeadlineList(result.getContent().getList());
-                updateHandler.sendEmptyMessage(0);
+                if(response.isSuccessful()) {
+                    ObjectMapper mapper = new ObjectMapper();
+                    HeadlineListResponse result = mapper.readValue(body, HeadlineListResponse.class);
+                    headlineListViewAdapter.appendHeadlineList(result.getContent().getList());
+                    updateHandler.sendEmptyMessage(0);
+                }
             }
         }).getHeadlineList(null, null, null, categoryId, null);
 

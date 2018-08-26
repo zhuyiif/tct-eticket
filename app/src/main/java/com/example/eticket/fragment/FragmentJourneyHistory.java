@@ -131,17 +131,19 @@ public class FragmentJourneyHistory extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 String body = response.body().string();
                 Log.i("JourneyList response", body);
-                ObjectMapper mapper = new ObjectMapper();
-                JourneyListResponse result = mapper.readValue(body, JourneyListResponse.class);
-                if(result.getCode() == 0) {
-                    data.clear();
-                    data.addAll(convertResult(result));
+                if(response.isSuccessful()) {
+                    ObjectMapper mapper = new ObjectMapper();
+                    JourneyListResponse result = mapper.readValue(body, JourneyListResponse.class);
+                    if (result.getCode() == 0) {
+                        data.clear();
+                        data.addAll(convertResult(result));
+                    }
+                    Message msg = updateHandler.obtainMessage(result.getCode());
+                    Bundle data = new Bundle();
+                    data.putString("message", result.getMessage());
+                    msg.setData(data);
+                    updateHandler.sendMessage(msg);
                 }
-                Message msg = updateHandler.obtainMessage(result.getCode());
-                Bundle data = new Bundle();
-                data.putString("message",result.getMessage());
-                msg.setData(data);
-                updateHandler.sendMessage(msg);
             }
         }).getJourneyList(token, "1");
     }

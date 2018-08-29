@@ -2,6 +2,11 @@ package com.example.eticket.local;
 
 public class CryptUtils {
 
+    // Used to load the 'native-lib' library on application startup.
+    static {
+        System.loadLibrary("native-lib");
+    }
+
     public static native byte[] sha1(byte in[], int length);
 
     public static native byte[] sm3(byte in[], int length);
@@ -18,7 +23,7 @@ public class CryptUtils {
 
     public static native byte[] sm2Dec(byte in[], int length);
 
-    public static native byte[] sm2Sign(byte in[], int length);
+    public static native byte[] sm2Sign(byte in[], int length, byte key[], int keyLength);
 
     public static native int sm2Verify(byte in[], int length, byte sign[], int signLen);
 

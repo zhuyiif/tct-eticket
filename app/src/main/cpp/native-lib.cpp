@@ -45,10 +45,52 @@ EC_KEY *getEcKey() {
 
 }
 
+EC_KEY *mk_eckey(int nid, const unsigned char *key, int keylen) {
+    int ok = 0;
+    EC_KEY *k = NULL;
+    BIGNUM *priv = NULL;
+    EC_POINT *pub = NULL;
+    const EC_GROUP *grp;
+    k = EC_KEY_new_by_curve_name(nid);
+    if (!k) {
+        goto err;
+    }
+
+    if (!(priv = BN_bin2bn(key, keylen, NULL))) {
+        goto err;
+    }
+
+    if (!EC_KEY_set_private_key(k, priv)) {
+        goto err;
+    }
+    grp = EC_KEY_get0_group(k);
+    pub = EC_POINT_new(grp);
+    if (!pub) {
+        goto err;
+    }
+
+    if (!EC_POINT_mul(grp, pub, priv, NULL, NULL, NULL)) {
+        goto err;
+    }
+
+    if (!EC_KEY_set_public_key(k, pub)) {
+        goto err;
+    }
+    ok = 1;
+    err:
+    BN_clear_free(priv);
+    EC_POINT_free(pub);
+    if (ok) {
+        return k;
+    }
+    EC_KEY_free(k);
+    return NULL;
+}
+
 extern "C"
 JNIEXPORT jbyteArray JNICALL
 Java_com_example_eticket_local_CryptUtils_aesEnc(JNIEnv *env,
-                                                            jobject instance,
+                                                            jclass theClass,
                                                             jbyteArray in_,
                                                             jint length,
                                                             jbyteArray key_) {
@@ -92,7 +134,7 @@ Java_com_example_eticket_local_CryptUtils_aesEnc(JNIEnv *env,
 extern "C"
 JNIEXPORT jbyteArray JNICALL
 Java_com_example_eticket_local_CryptUtils_aesDec(JNIEnv *env,
-                                                            jobject instance,
+                                                            jclass theClass,
                                                             jbyteArray in_,
                                                             jint length,
                                                             jbyteArray key_) {
@@ -127,7 +169,7 @@ Java_com_example_eticket_local_CryptUtils_aesDec(JNIEnv *env,
 extern "C"
 JNIEXPORT jbyteArray JNICALL
 Java_com_example_eticket_local_CryptUtils_sha1(JNIEnv *env,
-                                                          jobject instance,
+                                                          jclass theClass,
                                                           jbyteArray in_,
                                                           jint length) {
     jbyte *in = env->GetByteArrayElements(in_, NULL);
@@ -149,7 +191,7 @@ Java_com_example_eticket_local_CryptUtils_sha1(JNIEnv *env,
 extern "C"
 JNIEXPORT jint JNICALL
 Java_com_example_eticket_local_CryptUtils_genSM2KeyPairs(JNIEnv *env,
-                                                                    jobject instance,
+                                                                    jclass theClass,
                                                                     jstring path_) {
 
     jboolean result = false;
@@ -187,7 +229,7 @@ Java_com_example_eticket_local_CryptUtils_genSM2KeyPairs(JNIEnv *env,
 extern "C"
 JNIEXPORT jbyteArray JNICALL
 Java_com_example_eticket_local_CryptUtils_sm3(JNIEnv *env,
-                                                         jobject instance,
+                                                         jclass theClass,
                                                          jbyteArray in_,
                                                          jint length) {
     jbyte *in = env->GetByteArrayElements(in_, NULL);
@@ -211,7 +253,7 @@ Java_com_example_eticket_local_CryptUtils_sm3(JNIEnv *env,
 extern "C"
 JNIEXPORT jbyteArray JNICALL
 Java_com_example_eticket_local_CryptUtils_sm4Enc(JNIEnv *env,
-                                                            jobject instance,
+                                                            jclass theClass,
                                                             jbyteArray in_,
                                                             jint length,
                                                             jbyteArray key_) {
@@ -252,7 +294,7 @@ Java_com_example_eticket_local_CryptUtils_sm4Enc(JNIEnv *env,
 extern "C"
 JNIEXPORT jbyteArray JNICALL
 Java_com_example_eticket_local_CryptUtils_sm4Dec(JNIEnv *env,
-                                                            jobject instance,
+                                                            jclass theClass,
                                                             jbyteArray in_,
                                                             jint length,
                                                             jbyteArray key_) {
@@ -285,7 +327,7 @@ Java_com_example_eticket_local_CryptUtils_sm4Dec(JNIEnv *env,
 extern "C"
 JNIEXPORT jbyteArray JNICALL
 Java_com_example_eticket_local_CryptUtils_sm2Enc(JNIEnv *env,
-                                                            jobject instance,
+                                                            jclass theClass,
                                                             jbyteArray in_,
                                                             jint length) {
     jbyte *in = env->GetByteArrayElements(in_, NULL);
@@ -327,7 +369,7 @@ Java_com_example_eticket_local_CryptUtils_sm2Enc(JNIEnv *env,
 extern "C"
 JNIEXPORT jbyteArray JNICALL
 Java_com_example_eticket_local_CryptUtils_sm2Dec(JNIEnv *env,
-                                                            jobject instance,
+                                                            jclass theClass,
                                                             jbyteArray in_,
                                                             jint length) {
     jbyte *in = env->GetByteArrayElements(in_, NULL);
@@ -363,11 +405,12 @@ Java_com_example_eticket_local_CryptUtils_sm2Dec(JNIEnv *env,
     return array;
 }
 
-
+/**
+ * replaced by following
 extern "C"
 JNIEXPORT jbyteArray JNICALL
 Java_com_example_eticket_local_CryptUtils_sm2Sign(JNIEnv *env,
-                                                             jobject instance,
+                                                             jclass theClass,
                                                              jbyteArray in_,
                                                              jint length) {
     jbyte *in = env->GetByteArrayElements(in_, NULL);
@@ -425,11 +468,90 @@ Java_com_example_eticket_local_CryptUtils_sm2Sign(JNIEnv *env,
     env->ReleaseByteArrayElements(in_, in, 0);
     return array;
 }
+**/
+
+extern "C"
+JNIEXPORT jbyteArray JNICALL
+Java_com_example_eticket_local_CryptUtils_sm2Sign(JNIEnv *env,
+                                                  jclass theClass,
+                                                  jbyteArray in_,
+                                                  jint length,
+                                                  jbyteArray key_,
+                                                  jint keyLen) {
+    jbyte *in = env->GetByteArrayElements(in_, NULL);
+    jbyte *key = env->GetByteArrayElements(key_, NULL);
+
+    const EVP_MD *id_md = EVP_sm3();
+    const EVP_MD *msg_md = EVP_sm3();
+
+    int type = NID_sm2p256v1;
+    unsigned char dgst[EVP_MAX_MD_SIZE];
+    size_t dgstlen = 32;
+    const char *id = SM2_DEFAULT_ID_GMT09;
+
+    ECDSA_SIG *sm2sig = NULL;
+    unsigned char sig[256] = {0x0};
+    unsigned int siglen = 0;
+
+    const BIGNUM *sig_r;
+    const BIGNUM *sig_s;
+    const unsigned char *p;
+    int ret = 0;
+
+    jbyteArray array;
+
+    EC_KEY *ec_key = mk_eckey(NID_sm2p256v1, (const unsigned char *)key, keyLen);
+
+    if(!SM2_compute_message_digest(id_md, msg_md, (const unsigned char *)in, length, id,
+                               strlen(id), dgst, &dgstlen, ec_key)){
+        ret = -1;
+    }
+
+    if(ret >= 0) {
+        siglen = sizeof(sig);
+        if (!SM2_sign(type, dgst, dgstlen, sig, &siglen, ec_key)) {
+            ret = -2;
+        }
+
+        if(ret >= 0) {
+//            p = sig;
+//            sm2sig = d2i_ECDSA_SIG(NULL, &p, siglen);
+//
+//            ECDSA_SIG_get0(sm2sig, &sig_r, &sig_s);
+//
+//            unsigned char *sign = NULL;
+//            int signLen = 0;
+//            siglen = BN_bn2bin(sig_r, sign);
+//            signLen = siglen;
+//            siglen = BN_bn2bin(sig_s, sign + siglen);
+//            signLen += siglen;
+//
+//            array = env->NewByteArray(signLen);
+//            env->SetByteArrayRegion(array, 0, signLen, (const jbyte *) sign);
+
+            array = env->NewByteArray(siglen);
+            env->SetByteArrayRegion(array, 0, siglen, (const jbyte *) sig);
+        }
+}
+
+    if (sm2sig) {
+        ECDSA_SIG_free(sm2sig);
+    }
+    if (ec_key) {
+        EC_KEY_free(ec_key);
+    }
+    env->ReleaseByteArrayElements(key_, key, 0);
+    env->ReleaseByteArrayElements(in_, in, 0);
+    if(ret >= 0){
+        return array;
+    }
+    return NULL;
+}
 
 extern "C"
 JNIEXPORT jint JNICALL
 Java_com_example_eticket_local_CryptUtils_sm2Verify(JNIEnv *env,
-                                                               jobject instance,
+                                                               jclass theClass,
                                                                jbyteArray in_,
                                                                jint length,
                                                                jbyteArray sign_,

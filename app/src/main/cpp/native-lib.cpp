@@ -514,23 +514,23 @@ Java_com_example_eticket_local_CryptUtils_sm2Sign(JNIEnv *env,
         }
 
         if(ret >= 0) {
-//            p = sig;
-//            sm2sig = d2i_ECDSA_SIG(NULL, &p, siglen);
-//
-//            ECDSA_SIG_get0(sm2sig, &sig_r, &sig_s);
-//
-//            unsigned char *sign = NULL;
-//            int signLen = 0;
-//            siglen = BN_bn2bin(sig_r, sign);
-//            signLen = siglen;
-//            siglen = BN_bn2bin(sig_s, sign + siglen);
-//            signLen += siglen;
-//
-//            array = env->NewByteArray(signLen);
-//            env->SetByteArrayRegion(array, 0, signLen, (const jbyte *) sign);
+            p = sig;
+            sm2sig = d2i_ECDSA_SIG(NULL, &p, siglen);
 
-            array = env->NewByteArray(siglen);
-            env->SetByteArrayRegion(array, 0, siglen, (const jbyte *) sig);
+            ECDSA_SIG_get0(sm2sig, &sig_r, &sig_s);
+
+            unsigned char sign[64] = {0x0};
+            int signLen = 0;
+            siglen = BN_bn2bin(sig_r, sign);
+            signLen = siglen;
+            siglen = BN_bn2bin(sig_s, sign + siglen);
+            signLen += siglen;
+
+            array = env->NewByteArray(signLen);
+            env->SetByteArrayRegion(array, 0, signLen, (const jbyte *) sign);
+
+//            array = env->NewByteArray(siglen);
+//            env->SetByteArrayRegion(array, 0, siglen, (const jbyte *) sig);
         }
 }
 

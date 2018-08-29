@@ -31,8 +31,8 @@ public class Fragment3 extends Fragment {
     public void onResume() {
         byte[] key4Sm4 = new byte[]{0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33,
                 0x33};
-        String b64PrivateKey = "XuxhxbX4Q4bq2/A3l+c9eYXqxzbt8aTByXMCFmmXy8g=";
-        String b64Seed = "gAFJJAEBAAABEgECAwQKCAECAwQEACECkq2TQngNdUnfhGCq5AwFss45/BCWb0/r9a5eN2n9/8oBf+Xatmw/85W/cq8XuQ9nBYWfpN/FnkYoNM/D7d59YboYvAVAy0M64yQx+WHyaYfTBlD/+Wu1DGAb6X9bH1ONMDAwMDAxNTkyMTI4MTMzNzAwMDAwMDAwNzMAAATSAAAE0gEAAAEDg5D16brCGei6blfjLZIgheMAYNWm/zIuDQ03opboD3Fbh1RvAlgAFWbHuTZrDZHYDCCCaLhlSkyXxvpI7ZllnXMvbvdU+OH4NB1CxaRTSpbWt2Q9wmq+H4uOVVKds9wvYtB2G+25yMk=";
+        String b64PrivateKey = "Ewm1e0jzG7Pgvkox6b/rdakr/5KWQ0xelgRMHGVJZMA=";
+        String b64Seed = "gAFJJAEBAAADEgECAwQKCAECAwQEACECkq2TQngNdUnfhGCq5AwFss45/BCWb0/r9a5eN2n9/8rbcjQ12vROspMKv+kl9oTzBDtkYAczTUVKo+vf000lBqGV8YwFFDjBQQvrbFW761ep8JiE6HpvxCSXwV8f88+qAAAAAAAAAAAAAAADtPt5OQAAAAAAAAAAAEMAAATSAAAE0gEAAAECikUHSgyZNYBT8ZbaMG61P618JIVLd4ah+xyy9HWY6htbf4ruAlgAFQhgWcgHjAhO+HmSCa3K6x7wnVj5mevEcwEJbOrgdkIIGsJ6ksWCKrAvIv06Ic8Vtwi+CHEYVJZyzQG4dmYNo0s=";
         byte[] key4Sm2Decoded = Base64.decode(b64PrivateKey, Base64.NO_WRAP);
         byte[] key4Sm2 = CryptUtils.sm4Dec(key4Sm2Decoded, key4Sm2Decoded.length, key4Sm4);
         byte[] seed4Sm2Decoded = Base64.decode(b64Seed, Base64.NO_WRAP);
@@ -40,6 +40,7 @@ public class Fragment3 extends Fragment {
         long seconds = System.currentTimeMillis()/1000;
         byte buffer[] = {(byte) ((seconds >> 24) & 0xFF), (byte) ((seconds >> 16) & 0xFF), (byte) ((seconds >> 8) & 0xFF), (byte) (seconds & 0xFF)};
         byteBuffer.put(seed4Sm2Decoded).put(buffer);
+        Log.d("Base64 of key4Sm2", Base64.encodeToString(key4Sm2, Base64.NO_WRAP));
         byte[] resultOfSm2 = CryptUtils.sm2Sign(byteBuffer.array(), seed4Sm2Decoded.length+4, key4Sm2, key4Sm2.length);
         byteBuffer.put((byte) 0x15).put(resultOfSm2);
         String b64SM2SignMsg = Base64.encodeToString(byteBuffer.array(), 0, byteBuffer.position(), Base64.NO_WRAP);

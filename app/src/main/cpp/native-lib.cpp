@@ -4,10 +4,10 @@
 #include <openssl/ec.h>
 #include <openssl/evp.h>
 #include <openssl/sm2.h>
-#include <openssl/sms4.h>
 #include <crypto/ec/ec_lcl.h>
 #include <openssl/aes.h>
 #include "utils.h"
+#include "sm4.h"
 
 char *path;
 
@@ -85,6 +85,15 @@ EC_KEY *mk_eckey(int nid, const unsigned char *key, int keylen) {
     }
     EC_KEY_free(k);
     return NULL;
+}
+
+int sm4dec(unsigned char *srcKey ,int len, unsigned char *outKey) {
+    unsigned char key[16] = {0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33, 0x33,
+                             0x33};
+    sm4_context ctx;
+    sm4_setkey_dec(&ctx, key);
+    sm4_crypt_ecb(&ctx, 0, len, srcKey, outKey);
+    return 0;
 }
 
 extern "C"
@@ -248,78 +257,21 @@ Java_com_example_eticket_local_CryptUtils_sm3(JNIEnv *env,
     return array;
 }
 
-
-
-extern "C"
-JNIEXPORT jbyteArray JNICALL
-Java_com_example_eticket_local_CryptUtils_sm4Enc(JNIEnv *env,
-                                                            jclass theClass,
-                                                            jbyteArray in_,
-                                                            jint length,
-                                                            jbyteArray key_) {
-    jbyte *in = env->GetByteArrayElements(in_, NULL);
-    jbyte *key = env->GetByteArrayElements(key_, NULL);
-
-    int pading = SMS4_KEY_LENGTH - length % SMS4_KEY_LENGTH;
-    int block = length / SMS4_KEY_LENGTH;
-    int endLen = SMS4_KEY_LENGTH - pading;
-
-    unsigned char *p = (unsigned char *) malloc(SMS4_KEY_LENGTH + 1);
-    memset(p, 0, SMS4_KEY_LENGTH + 1);
-    memset(p + endLen, pading, (size_t) pading);
-    memcpy(p, in + block * SMS4_KEY_LENGTH, (size_t) endLen);
-
-    sms4_key_t sms4EncKey;
-    sms4_set_encrypt_key(&sms4EncKey, (const unsigned char *) key);
-
-    unsigned char *out = (unsigned char *) malloc((size_t) (length + pading + 1));
-    memset(out, 0, (size_t) (length + pading + 1));
-
-    for (int i = 0; i < block; i++) {
-        sms4_encrypt((const unsigned char *) (in + (i * 16)), out + i * 16, &sms4EncKey);
-    }
-    sms4_encrypt(p, out + block * 16, &sms4EncKey);
-
-    jbyteArray array = env->NewByteArray(length + pading);
-    env->SetByteArrayRegion(array, 0, length + pading, (const jbyte *) out);
-
-    free(p);
-    free(out);
-    env->ReleaseByteArrayElements(in_, in, 0);
-    env->ReleaseByteArrayElements(key_, key, 0);
-
-    return array;
-}
-
 extern "C"
 JNIEXPORT jbyteArray JNICALL
 Java_com_example_eticket_local_CryptUtils_sm4Dec(JNIEnv *env,
                                                             jclass theClass,
                                                             jbyteArray in_,
-                                                            jint length,
-                                                            jbyteArray key_) {
+                                                            jint length) {
     jbyte *in = env->GetByteArrayElements(in_, NULL);
-    jbyte *key = env->GetByteArrayElements(key_, NULL);
 
-    sms4_key_t sms4DecKey;
-    sms4_set_decrypt_key(&sms4DecKey, (const unsigned char *) key);
+    unsigned char out[32] = {0x0};
+    sm4dec((unsigned char *)in, length, out);
 
-    unsigned char *out = (unsigned char *) malloc(length);
-    memset(out, 0, length);
+    jbyteArray array = env->NewByteArray(sizeof(out));
+    env->SetByteArrayRegion(array, 0, sizeof(out), (const jbyte *) out);
 
-    for (int i = 0; i < length / 16; i++) {
-        sms4_decrypt((const unsigned char *) (in + (i * 16)), out + i * 16, &sms4DecKey);
-    }
-    //去补位
-    int padinglen = out[length - 1];
-    memset(out + length - padinglen, 0, padinglen);
-
-    jbyteArray array = env->NewByteArray(length - padinglen);
-    env->SetByteArrayRegion(array, 0, length - padinglen, (const jbyte *) out);
-
-    free(out);
     env->ReleaseByteArrayElements(in_, in, 0);
-    env->ReleaseByteArrayElements(key_, key, 0);
 
     return array;
 }

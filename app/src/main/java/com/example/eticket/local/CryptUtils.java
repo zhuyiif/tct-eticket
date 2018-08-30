@@ -15,9 +15,7 @@ public class CryptUtils {
 
     public static native byte[] aesDec(byte in[], int length, byte key[]);
 
-    public static native byte[] sm4Enc(byte in[], int length, byte key[]);
-
-    public static native byte[] sm4Dec(byte in[], int length, byte key[]);
+    public static native byte[] sm4Dec(byte in[], int length);
 
     public static native byte[] sm2Enc(byte in[], int length);
 

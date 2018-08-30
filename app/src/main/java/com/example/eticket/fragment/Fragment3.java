@@ -46,7 +46,7 @@ public class Fragment3 extends Fragment {
         Log.d("Code Sign", b64SM2SignMsg);
         ImageView qrImage = getView().findViewById(R.id.qr_code);
 //        qrImage.setImageBitmap(AwesomeQRCode.create(b64SM2SignMsg, 150, 10, 0.1f, Color.BLACK, Color.WHITE, null, false, true));
-        qrImage.setImageBitmap(QRCode.from(b64SM2SignMsg).bitmap());
+        qrImage.setImageBitmap(QRCode.from(b64SM2SignMsg).withSize(qrImage.getWidth(), qrImage.getHeight()).bitmap());
         super.onResume();
     }
 

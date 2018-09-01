@@ -23,7 +23,6 @@ import android.widget.TextView;
 
 import com.example.eticket.Person;
 import com.example.eticket.R;
-import com.example.eticket.ViewPagerAdapter;
 import com.example.eticket.model.HeadlineCateItem;
 import com.example.eticket.okhttp.HttpUtils;
 import com.google.gson.Gson;
@@ -161,11 +160,11 @@ public class Fragment1 extends Fragment {
                                 tabLayout.removeAllTabs();
 
                                 for (int i = 0; i < headlineCateItems.size(); i++) {
-                                    tabLayout.addTab(tabLayout.newTab().setText(headlineCateItems.get(i).getTitle()));
+                                    tabLayout.addTab(createTab(headlineCateItems.get(i).getTitle()));
                                 }
 
 
-                                initTabView();
+//                                initTabView();
                                 headlineCategoryUpdateHandler.sendEmptyMessage(headlineCateItems.size());
 
                                 tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -325,6 +324,20 @@ public class Fragment1 extends Fragment {
 
         viewPager.setAdapter(headlineAdapter);
 
+    }
+
+    /**
+     * 创建自定义Tab
+     */
+    private TabLayout.Tab createTab(String title) {
+        //依次获取标签
+        TabLayout.Tab tab = tabLayout.newTab();
+        //为每个标签设置布局
+        tab.setCustomView(R.layout.custom_tab_item);
+        TextView tabTextView = (TextView) tab.getCustomView().findViewById(R.id.tv_tab_name);
+        //为标签填充数据
+        tabTextView.setText(title);
+        return tab;
     }
 
     /**

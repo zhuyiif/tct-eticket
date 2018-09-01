@@ -12,6 +12,8 @@ public class AppStore {
     public static final String SHARED_PREFERENCES_KEY ="E_TICKET_DATA_KEY";
     public static final String TOKEN = "token";
     public static final String WAS_SHOWN_GUIDE_PAGES = "WAS_SHOWN_GUIDE_PAGES";
+    public static final String TICKET_CODE_CREATE_KEY = "TICKET_CODE_CREATE_KEY";
+    public static final String TICKET_CODE_CREATE_SEED = "TICKET_CODE_CREATE_SEED";
 
     public static final String LOGIN ="E_TICKET_LOGIN_CONTENT_KEY";
 
@@ -65,6 +67,30 @@ public class AppStore {
         SharedPreferences sp = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE);
         String user_id = sp.getString(TOKEN, "");
         return user_id;
+    }
+
+    public static String getTicketCodeCreateKey(Context context, String defValue) {
+        SharedPreferences sp = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE);
+        String key = sp.getString(TICKET_CODE_CREATE_KEY, defValue);
+        return key;
+    }
+
+    public static void setTicketCodeCreateKey(Context context, String key){
+        SharedPreferences.Editor editor = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE).edit();
+        editor.putString(TICKET_CODE_CREATE_KEY, key);
+        editor.commit();
+    }
+
+    public static String getTicketCodeCreateSeed(Context context, String defValue) {
+        SharedPreferences sp = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE);
+        String seed = sp.getString(TICKET_CODE_CREATE_SEED, defValue);
+        return seed;
+    }
+
+    public static void setTicketCodeCreateSeed(Context context, String key){
+        SharedPreferences.Editor editor = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE).edit();
+        editor.putString(TICKET_CODE_CREATE_SEED, key);
+        editor.commit();
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.eticket.api;
 
 import com.example.eticket.model.JourneyListResponse;
+import com.example.eticket.model.SeedInfo;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.HeaderParam;
@@ -17,4 +18,9 @@ public interface SubwayService {
     @Path("/records")
     @Produces(MediaType.APPLICATION_JSON)
     JourneyListResponse getJourneyList(@HeaderParam("app-token")String token, @QueryParam("page")String page);
+
+    @GET
+    @Path("/qrcode/seed")
+    @Produces(MediaType.APPLICATION_JSON)
+    SeedInfo getQrSeed(@HeaderParam("app-token")String token);
 }

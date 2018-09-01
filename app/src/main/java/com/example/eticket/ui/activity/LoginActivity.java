@@ -40,8 +40,12 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.example.eticket.R;
+import com.example.eticket.api.SubwayService;
+import com.example.eticket.model.SeedInfo;
+import com.example.eticket.okhttp.ApiFactory;
 import com.example.eticket.okhttp.HttpUtils;
 import com.example.eticket.storage.AppStore;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -243,6 +247,35 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                                             finish();
                                         }
 
+                                        new Thread() {
+                                            @Override
+                                            public void run() {
+                                                ApiFactory apiFactory = new ApiFactory();
+                                                apiFactory.createService(SubwayService.BASE_ADDR, SubwayService.class, new Callback() {
+
+                                                    @Override
+                                                    public void onFailure(Call call, IOException e) {
+                                                        Log.i("QrSeed response", "failure", e);
+                                                    }
+
+                                                    @Override
+                                                    public void onResponse(Call call, Response response) throws IOException {
+                                                        String body = response.body().string();
+                                                        Log.i("QrSeed response", body);
+                                                        if(response.isSuccessful()) {
+                                                            ObjectMapper mapper = new ObjectMapper();
+                                                            try {
+                                                                SeedInfo result = mapper.readValue(body, SeedInfo.class);
+                                                                AppStore.setTicketCodeCreateKey(LoginActivity.this, result.getKey());
+                                                                AppStore.setTicketCodeCreateSeed(LoginActivity.this, result.getSeed());
+                                                            } catch (IOException e) {
+                                                                Log.e("QrSeed response", "failure" , e);
+                                                            }
+                                                        }
+                                                    }
+                                                }).getQrSeed(AppStore.getToken(LoginActivity.this));
+                                            }
+                                        }.start();
 
                                     } catch (Throwable t) {
                                         Log.e("login", t.toString());

@@ -5,6 +5,7 @@ package com.example.eticket.ui.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -12,7 +13,17 @@ import android.widget.RelativeLayout;
 
 import com.example.eticket.MainActivity;
 import com.example.eticket.R;
+import com.example.eticket.api.SubwayService;
+import com.example.eticket.model.SeedInfo;
+import com.example.eticket.okhttp.ApiFactory;
 import com.example.eticket.storage.AppStore;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -33,6 +44,37 @@ public class SplashActivity extends AppCompatActivity {
             finish();
         }
 
+        if(AppStore.isLogin(this)) {
+            new Thread() {
+                @Override
+                public void run() {
+                    ApiFactory apiFactory = new ApiFactory();
+                    apiFactory.createService(SubwayService.BASE_ADDR, SubwayService.class, new Callback() {
+
+                        @Override
+                        public void onFailure(Call call, IOException e) {
+                            Log.i("QrSeed response", "failure", e);
+                        }
+
+                        @Override
+                        public void onResponse(Call call, Response response) throws IOException {
+                            String body = response.body().string();
+                            Log.i("QrSeed response", body);
+                            if(response.isSuccessful()) {
+                                ObjectMapper mapper = new ObjectMapper();
+                                try {
+                                    SeedInfo result = mapper.readValue(body, SeedInfo.class);
+                                    AppStore.setTicketCodeCreateKey(SplashActivity.this, result.getKey());
+                                    AppStore.setTicketCodeCreateSeed(SplashActivity.this, result.getSeed());
+                                } catch (IOException e) {
+                                    Log.e("QrSeed response", "failure" , e);
+                                }
+                            }
+                        }
+                    }).getQrSeed(AppStore.getToken(SplashActivity.this));
+                }
+            }.start();
+        }
 
         AlphaAnimation alphaAnimation = new AlphaAnimation(.0f, 1.0f);
         alphaAnimation.setDuration(1000);//设置动画播放时长1000毫秒（1秒）

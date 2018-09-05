@@ -1,5 +1,6 @@
 package com.example.eticket.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import com.example.eticket.Person;
 import com.example.eticket.R;
 import com.example.eticket.model.HeadlineCateItem;
 import com.example.eticket.okhttp.HttpUtils;
+import com.example.eticket.storage.AppStore;
+import com.example.eticket.ui.activity.WebViewActivity;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tmall.ultraviewpager.UltraViewPager;
@@ -41,6 +44,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.SortedSet;
 
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -63,7 +68,9 @@ public class Fragment1 extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return LayoutInflater.from(getActivity()).inflate(R.layout.fragment1, container, false);
+        View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment1, container, false);
+        ButterKnife.inject(this, view);
+        return view;
     }
 
     @Override
@@ -466,5 +473,19 @@ public class Fragment1 extends Fragment {
         public CharSequence getPageTitle(int position) {
             return headlineCateItems.get(position).getTitle();
         }
+    }
+
+    @OnClick(R.id.microInteract)
+    public void openMicroInteraction(View bt) {
+        Intent intent = new Intent().setClass(getContext(), WebViewActivity.class);
+        intent.putExtra(WebViewActivity.URL, AppStore.MICRO_INTERACTION_URL + AppStore.getToken(getContext()));
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.subwaySearch)
+    public void searchSubway(View bt) {
+        Intent intent = new Intent().setClass(getContext(), WebViewActivity.class);
+        intent.putExtra(WebViewActivity.URL, AppStore.SUBWAY_SEARCH_URL);
+        startActivity(intent);
     }
 }

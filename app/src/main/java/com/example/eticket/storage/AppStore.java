@@ -17,6 +17,9 @@ public class AppStore {
 
     public static final String LOGIN ="E_TICKET_LOGIN_CONTENT_KEY";
 
+    public static final String SUBWAY_SEARCH_URL = "https://operator-app.funenc.com/page/#/subwayLine";
+    public static final String MICRO_INTERACTION_URL = "https://operator-app.funenc.com/page/#/weinteraction?app_token=";
+
     public static boolean isLogin(Context context) {
         SharedPreferences sp = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE);
         String user_id = sp.getString(TOKEN, "");

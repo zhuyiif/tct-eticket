@@ -33,7 +33,7 @@
         android:layout_below="@+id/ultra_viewpager">
 
         <Button
-            android:id="@+id/allow"
+            android:id="@+id/microInteract"
             android:background="@null"
             android:layout_width="0.0dip"
             android:layout_height="fill_parent"
@@ -45,7 +45,7 @@
              />
 
         <Button
-            android:id="@+id/deny"
+            android:id="@+id/subwaySearch"
             android:background="@null"
             android:layout_width="0.0dip"
             android:layout_height="match_parent"

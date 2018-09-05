@@ -427,7 +427,7 @@ public class Fragment1 extends Fragment {
         public int getItemPosition(Object object){
             for(int pos =0;pos<fragmentList.size();++pos){
                 if(object.equals(fragmentList.get(pos))){
-                    if(fragmentsUpdateFlag.get(pos)){
+                    if(fragmentsUpdateFlag.size()>pos && fragmentsUpdateFlag.get(pos)){
                         return POSITION_NONE;
                     }
                 }

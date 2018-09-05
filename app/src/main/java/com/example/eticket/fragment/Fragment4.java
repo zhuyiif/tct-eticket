@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -17,7 +18,7 @@ public class Fragment4 extends Fragment {
 
     private WebView webView;
     //private static final String URL = "http://operator-app.funenc.com/page/#/infos/show?infoId=2";
-    private static final String URL = "https://operator-app.funenc.com/page/#/infos/show?infoId=2";
+    private static final String URL = "https://operator-app.funenc.com/page/#/subwayLine";
 
 
     @Nullable
@@ -28,10 +29,17 @@ public class Fragment4 extends Fragment {
         webView = rootView.findViewById(R.id.info);
 
         // 替换成baidu 就可以了
-        String url = "https://operator-app.funenc.com/page/#/infos/show?infoId=2";
+        String url = "https://operator-app.funenc.com/page/#/infos";
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true);
+        settings.setDomStorageEnabled(true);
+        settings.setJavaScriptEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
+        settings.setAppCacheEnabled(true);
 
         webView.loadUrl(url);
         webView.setFocusable(true);
+
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
@@ -42,11 +50,7 @@ public class Fragment4 extends Fragment {
             }
         });
 
-        WebSettings settings = webView.getSettings();
-        settings.setJavaScriptEnabled(true);
 
-        //设置webview优先使用缓存
-        settings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 
 
 
@@ -56,6 +60,8 @@ public class Fragment4 extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+
 
     }
 

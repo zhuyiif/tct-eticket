@@ -19,6 +19,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -28,6 +30,7 @@ import com.example.eticket.model.HeadlineCateItem;
 import com.example.eticket.okhttp.HttpUtils;
 import com.example.eticket.storage.AppStore;
 import com.example.eticket.ui.activity.WebViewActivity;
+import com.example.eticket.ui.component.ObservableScrollView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tmall.ultraviewpager.UltraViewPager;
@@ -45,6 +48,7 @@ import java.util.List;
 import java.util.SortedSet;
 
 import butterknife.ButterKnife;
+import butterknife.InjectView;
 import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -65,11 +69,36 @@ public class Fragment1 extends Fragment {
     private SortedSet<Integer> categoryIdSet;
     private Handler headlineCategoryUpdateHandler;
 
+    @InjectView(R.id.scrollView)
+    ObservableScrollView scrollView;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment1, container, false);
         ButterKnife.inject(this, view);
+
+        final RelativeLayout tabRootLayout = view.findViewById(R.id.tabrootlayout);
+        final LinearLayout tabFloatContainer = view.findViewById(R.id.tabFloatContainer);
+        final View tabLayout = view.findViewById(R.id.tablayout);
+        scrollView.setScrollViewListener(new ObservableScrollView.ScrollViewListener() {
+            @Override
+            public void onScrollChanged(ScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if(scrollY > tabRootLayout.getY()){
+                    if(!tabFloatContainer.equals(tabLayout.getParent())) {
+                        tabRootLayout.removeView(tabLayout);
+                        tabFloatContainer.setVisibility(View.VISIBLE);
+                        tabFloatContainer.addView(tabLayout);
+                    }
+                }else{
+                    if(!tabLayout.getParent().equals(tabRootLayout)) {
+                        tabFloatContainer.removeView(tabLayout);
+                        tabRootLayout.addView(tabLayout);
+                        tabFloatContainer.setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
         return view;
     }
 
@@ -180,7 +209,6 @@ public class Fragment1 extends Fragment {
                                         TextView tabTextView = (TextView) tab.getCustomView().findViewById(R.id.tv_tab_name);
                                         setTabItemState(tabTextView, true);
 
-                                        ScrollView scrollView =  getActivity().findViewById(R.id.scrollView);
                                         int currentY = scrollView.getScrollY();
 
                                         viewPager.setCurrentItem(tab.getPosition(),false);
@@ -236,9 +264,6 @@ public class Fragment1 extends Fragment {
 
             }
         });
-
-
-        ScrollView scrollView =  getActivity().findViewById(R.id.scrollView);
 
         scrollView.smoothScrollTo(0,0);
 

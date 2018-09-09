@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ScrollView android:layout_width="match_parent"
+<RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<com.example.eticket.ui.component.ObservableScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:scrollbars="vertical"
     android:id="@+id/scrollView">
 
@@ -11,6 +13,8 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     >
 
 
@@ -257,6 +261,7 @@
             app:tabTextAppearance="@style/MyTabLayoutTextAppearance"
             android:layout_width="match_parent"
             android:layout_height="48dp"
+            android:background="@color/white"
             app:tabBackground="@color/white"
             app:tabGravity="fill"
             app:tabMode="scrollable"
@@ -304,4 +309,14 @@
 
 </RelativeLayout>
 
-</ScrollView>
+</com.example.eticket.ui.component.ObservableScrollView>
+
+    <LinearLayout
+        android:id="@+id/tabFloatContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:background="@color/white"></LinearLayout>
+
+</RelativeLayout>

@@ -1,7 +1,6 @@
 package com.example.eticket.fragment;
 
-import android.annotation.TargetApi;
-import android.os.Build;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.eticket.R;
@@ -18,7 +18,10 @@ import com.example.eticket.Utility;
 import com.example.eticket.api.OperationService;
 import com.example.eticket.model.HeadlineListResponse;
 import com.example.eticket.okhttp.ApiFactory;
+import com.example.eticket.storage.AppStore;
+import com.example.eticket.ui.activity.WebViewActivity;
 import com.example.eticket.ui.component.HeadlineListViewAdapter;
+import com.example.eticket.util.StringUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
@@ -43,7 +46,6 @@ public class FragmentHeadlineList extends Fragment {
         return LayoutInflater.from(getActivity()).inflate(R.layout.fragment6, container, false);
     }
 
-    @TargetApi(Build.VERSION_CODES.M)
     @Override
     public void onStart() {
         super.onStart();
@@ -53,6 +55,21 @@ public class FragmentHeadlineList extends Fragment {
         listView = getView().findViewById(R.id.listView);
         headlineListViewAdapter = new HeadlineListViewAdapter(getContext());
         listView.setAdapter(headlineListViewAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                HeadlineListResponse.Headline headline = (HeadlineListResponse.Headline) headlineListViewAdapter.getItem(position);
+                String url = headline.getUrl();
+                if(!StringUtils.isBlank(url)) {
+                    if(!url.matches("http(s)?://.*")){
+                        url = OperationService.BASE_ADDR + url + AppStore.getToken(getContext());
+                    }
+                    Intent intent = new Intent().setClass(getContext(), WebViewActivity.class);
+                    intent.putExtra(WebViewActivity.URL, url);
+                    startActivity(intent);
+                }
+            }
+        });
         updateHandler = new Handler(){
             @Override
             public void handleMessage(Message msg) {

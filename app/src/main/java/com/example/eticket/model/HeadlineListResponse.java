@@ -17,6 +17,7 @@ public class HeadlineListResponse {
         private String time;
         private float categoryId;
         private float viewCount;
+        private String url;
 
 
         // Getter Methods
@@ -69,6 +70,10 @@ public class HeadlineListResponse {
             return viewCount;
         }
 
+        public String getUrl() {
+            return url;
+        }
+
         // Setter Methods
 
         public void setId(float id) {
@@ -117,6 +122,10 @@ public class HeadlineListResponse {
 
         public void setViewCount(float viewCount) {
             this.viewCount = viewCount;
+        }
+
+        public void setUrl(String url) {
+            this.url = url;
         }
     }
 

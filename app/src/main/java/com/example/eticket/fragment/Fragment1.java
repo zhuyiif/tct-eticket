@@ -19,6 +19,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -26,11 +28,17 @@ import android.widget.TextView;
 
 import com.example.eticket.Person;
 import com.example.eticket.R;
+import com.example.eticket.api.OperationService;
+import com.example.eticket.model.FelicityListResponse;
 import com.example.eticket.model.HeadlineCateItem;
+import com.example.eticket.okhttp.ApiFactory;
 import com.example.eticket.okhttp.HttpUtils;
 import com.example.eticket.storage.AppStore;
 import com.example.eticket.ui.activity.WebViewActivity;
+import com.example.eticket.ui.adapter.FelicityListAdapter;
 import com.example.eticket.ui.component.ObservableScrollView;
+import com.example.eticket.util.StringUtils;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.tmall.ultraviewpager.UltraViewPager;
@@ -71,6 +79,11 @@ public class Fragment1 extends Fragment {
 
     @InjectView(R.id.scrollView)
     ObservableScrollView scrollView;
+    @InjectView(R.id.felicityListView)
+    GridView felicityListView;
+    private List<FelicityListResponse.Felicity> felicityList;
+    private FelicityListAdapter felicityListAdapter;
+    private FelicityListResponse felicityListResponse;
 
     @Nullable
     @Override
@@ -99,7 +112,71 @@ public class Fragment1 extends Fragment {
                 }
             }
         });
+        felicityList = new ArrayList<>();
+        FelicityListResponse.Felicity felicity = new FelicityListResponse.Felicity();
+        felicityList.add(felicity);
+        felicityList.add(felicity);
+        felicityListAdapter = new FelicityListAdapter(getContext(), felicityList);
+        felicityListView.setAdapter(felicityListAdapter);
+        felicityListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String url = felicityList.get(position).getUrl();
+                if(!StringUtils.isBlank(url)) {
+                    if(!url.matches("http(s)?://.*")){
+                        url = OperationService.BASE_ADDR + url;
+                    }
+                    Intent intent = new Intent().setClass(getContext(), WebViewActivity.class);
+                    intent.putExtra(WebViewActivity.URL, url);
+                    startActivity(intent);
+                }
+            }
+        });
+        layoutFelicityListView(felicityList);
+        final Handler felicityUpdateHandler = new Handler(){
+            @Override
+            public void handleMessage(Message msg) {
+                felicityList.clear();
+                felicityList.addAll(felicityListResponse.getContent().getList());
+                felicityListAdapter.notifyDataSetChanged();
+            }
+        };
+        ApiFactory apiFactory = new ApiFactory();
+        apiFactory.createService(OperationService.BASE_ADDR, OperationService.class, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.e("WEB API", "when calling getFelicityList", e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String body = response.body().string();
+                Log.d("getFelicityList", body);
+                if (response.isSuccessful()) {
+                    ObjectMapper mapper = new ObjectMapper();
+                    try {
+                        felicityListResponse = mapper.readValue(body, FelicityListResponse.class);
+                        if(felicityListResponse.getCode() == 0){
+                            felicityUpdateHandler.sendEmptyMessage(felicityListResponse.getContent().getList().size());
+                        }
+                    } catch (IOException e) {
+                        Log.e("getFelicityList", "failure", e);
+                    }
+                }
+            }
+        }).getFelicityList();
         return view;
+    }
+
+    private void layoutFelicityListView(List<FelicityListResponse.Felicity> felicityList) {
+        felicityListView.setNumColumns(felicityList.size());
+        int columnWidth = Float.valueOf(TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, 180, getContext().getResources().getDisplayMetrics())).intValue();
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                columnWidth*felicityList.size(), LinearLayout.LayoutParams.WRAP_CONTENT);
+        felicityListView.setLayoutParams(params); //
+        felicityListView.setColumnWidth(columnWidth);
+        felicityListView.setHorizontalSpacing(0);
     }
 
     @Override

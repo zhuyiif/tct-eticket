@@ -1,5 +1,6 @@
 package com.example.eticket.api;
 
+import com.example.eticket.model.FelicityListResponse;
 import com.example.eticket.model.HeadlineListResponse;
 
 import javax.ws.rs.GET;
@@ -20,4 +21,9 @@ public interface OperationService {
                                          @QueryParam("title") String title,
                                          @QueryParam("categoryId") Integer categoryId,
                                          @QueryParam("category") String category);
+
+    @GET
+    @Path("/felicities")
+    @Produces(MediaType.APPLICATION_JSON)
+    FelicityListResponse getFelicityList();
 }

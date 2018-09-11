@@ -161,81 +161,27 @@
         android:layout_width="fill_parent" android:layout_height="wrap_content"
         android:layout_below="@+id/title1">
 
-        <LinearLayout
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="7"
-            android:orientation="vertical">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-            <ImageView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/right_ad"
-                android:layout_gravity="left"
-                android:paddingLeft="10dp"
-                />
+                android:orientation="horizontal">
 
+                <GridView
+                    android:id="@+id/felicityListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:gravity="center"
+                    android:listSelector="@android:color/transparent"
+                    android:numColumns="auto_fit"
+                    android:stretchMode="columnWidth"></GridView>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:paddingLeft="8dp"
-                android:textSize="@dimen/medium_text"
-                android:textColor="@color/green"
-                android:text="里程兑换"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:paddingLeft="8dp"
-                android:textSize="@dimen/small_text"
-                android:textColor="@color/black"
-                android:text="生活中的点滴，汇聚成一场赏心悦目的惊喜。"/>
-
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="4"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:src="@drawable/left_ad"
-                android:paddingLeft="10dp"
-                android:layout_gravity="left"
-
-                />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:paddingLeft="8dp"
-                android:textSize="@dimen/medium_text"
-                android:textColor="@color/green"
-                android:text="里程兑换"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left"
-                android:paddingLeft="8dp"
-                android:textSize="@dimen/small_text"
-                android:textColor="@color/black"
-                android:text="生活中的点滴，汇聚成一场赏心悦目的惊喜。"/>
-
-        </LinearLayout>
-
-
-
+            </LinearLayout>
+        </HorizontalScrollView>
     </LinearLayout>
 
 

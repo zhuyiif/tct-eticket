@@ -80,6 +80,7 @@
                 app:srcCompat="@drawable/qr_code" />
 
             <LinearLayout
+                android:id="@+id/refreshCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="27dp"

@@ -9,5 +9,6 @@
     <dimen name="medium_text">14sp</dimen>
 
     <dimen name="small_text">9sp</dimen>
+    <dimen name="setting_item_text">11sp</dimen>
 
 </resources>

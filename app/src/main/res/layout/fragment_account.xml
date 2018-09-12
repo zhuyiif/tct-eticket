@@ -224,7 +224,7 @@
             android:orientation="vertical">
 
             <Button
-                android:id="@+id/about"
+                android:id="@+id/systemSetting"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:background="@drawable/personal_center_about_btn" />
@@ -234,7 +234,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:gravity="center"
-                android:text="关于我们"
+                android:text="系统设置"
                 android:textSize="8sp" />
         </LinearLayout>
     </LinearLayout>

@@ -2,7 +2,6 @@ package com.example.eticket.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Debug;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -19,6 +18,7 @@ import com.example.eticket.model.User;
 import com.example.eticket.okhttp.HttpUtils;
 import com.example.eticket.storage.AppStore;
 import com.example.eticket.ui.activity.LoginActivity;
+import com.example.eticket.ui.activity.SystemSettingActivity;
 import com.example.eticket.ui.activity.TopUpActivity;
 import com.example.eticket.ui.activity.UserInfoActivity;
 import com.google.gson.Gson;
@@ -71,10 +71,9 @@ public class FragmentAccount extends Fragment {
         startActivity(new Intent().setClass(getContext(), LoginActivity.class));
     }
 
-    @OnClick(R.id.about)
+    @OnClick(R.id.systemSetting)
     void onLogout(View bt){
-        AppEngine.logout();
-        refreshPage();
+        startActivity(new Intent().setClass(getContext(), SystemSettingActivity.class));
     }
 
     @OnClick(R.id.user_info)

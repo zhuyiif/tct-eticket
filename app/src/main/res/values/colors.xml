@@ -34,5 +34,7 @@
     <color name="notice_text">#747474</color>
 
     <color name="grey_line">#969696</color>
+    <color name="setting_page_background">#FAFAFA</color>
+    <color name="log_out_text_color">#E04B4B</color>
 
 </resources>

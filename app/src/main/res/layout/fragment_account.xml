@@ -30,7 +30,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="11dp"
-            android:visibility="gone" />
+            android:visibility="gone"
+            />
 
         <Button
             android:id="@+id/login"
@@ -38,6 +39,16 @@
             android:layout_height="37dp"
             android:layout_centerInParent="true"
             android:background="@drawable/btn_login_selector" />
+
+        <Button
+            android:id="@+id/user_info"
+            android:layout_width="113dp"
+            android:layout_height="70dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/user_info_icon"
+            android:paddingRight="5dp"
+            android:paddingTop="5dp" />
 
         <RelativeLayout
             android:layout_width="match_parent"

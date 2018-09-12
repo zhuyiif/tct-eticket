@@ -2,6 +2,7 @@ package com.example.eticket.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Debug;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.example.eticket.okhttp.HttpUtils;
 import com.example.eticket.storage.AppStore;
 import com.example.eticket.ui.activity.LoginActivity;
 import com.example.eticket.ui.activity.TopUpActivity;
+import com.example.eticket.ui.activity.UserInfoActivity;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -49,6 +51,8 @@ public class FragmentAccount extends Fragment {
     TextView balanceText;
     @InjectView(R.id.award)
     TextView awardText;
+    @InjectView(R.id.user_info)
+    Button userInfoButton;
 
 
     HttpUtils httpUtils = new HttpUtils();
@@ -71,6 +75,13 @@ public class FragmentAccount extends Fragment {
     void onLogout(View bt){
         AppEngine.logout();
         refreshPage();
+    }
+
+    @OnClick(R.id.user_info)
+    void onClickUserInfo(Button btn) {
+        Log.d("account", "info click");
+        startActivity(new Intent().setClass(getContext(), UserInfoActivity.class));
+
     }
 
     void refreshPage(){

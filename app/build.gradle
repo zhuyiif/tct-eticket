@@ -58,4 +58,5 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.5'
 //    implementation 'org.apache.cxf:cxf-rt-rs-client:3.0.0'
 //    implementation 'org.codehaus.jackson:jackson-jaxrs:1.9.13'
+    implementation 'com.qiniu:qiniu-android-sdk:7.3.+'
 }

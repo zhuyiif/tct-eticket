@@ -169,6 +169,7 @@ public class HttpUtils {
                 .url("https://operator-app.funenc.com/api/headline/categories")
                 .build();
 
+
         Call call = client.newCall(request);
         call.enqueue(new Callback() {
             @Override
@@ -185,6 +186,32 @@ public class HttpUtils {
         });
 
     }
+
+    public  void getQiniuToken(String token,final Callback cb)  throws IOException, JSONException {
+
+        Request request = new Request.Builder()
+                .url("https://operator-app.funenc.com/api/auth/app/qiniu/token")
+                .addHeader("app-token", token)
+                .build();
+
+        Call call = client.newCall(request);
+        call.enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d("get getQiniuToken ",e.toString());
+                cb.onFailure(call,e);
+
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                cb.onResponse(call,response);
+            }
+        });
+
+    }
+
+
 
 
 

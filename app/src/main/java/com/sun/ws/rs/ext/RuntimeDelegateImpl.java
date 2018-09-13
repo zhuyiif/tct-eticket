@@ -1,7 +1,7 @@
 package com.sun.ws.rs.ext;
 
-import com.example.eticket.api.util.UriBuilderImpl;
-import com.example.eticket.api.util.ext.MediaTypeHeaderProvider;
+import com.funenc.eticket.api.util.UriBuilderImpl;
+import com.funenc.eticket.api.util.ext.MediaTypeHeaderProvider;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-<com.example.eticket.ui.component.ObservableScrollView android:layout_width="match_parent"
+<com.funenc.eticket.ui.component.ObservableScrollView android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scrollbars="vertical"
     android:id="@+id/scrollView">
@@ -255,7 +255,7 @@
 
 </RelativeLayout>
 
-</com.example.eticket.ui.component.ObservableScrollView>
+</com.funenc.eticket.ui.component.ObservableScrollView>
 
     <LinearLayout
         android:id="@+id/tabFloatContainer"

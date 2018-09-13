@@ -38,10 +38,10 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.example.eticket.ui.component.ListViewForScrollView
+        <com.funenc.eticket.ui.component.ListViewForScrollView
             android:id="@+id/journeyHistory"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:divider="@null"></com.example.eticket.ui.component.ListViewForScrollView>
+            android:divider="@null"></com.funenc.eticket.ui.component.ListViewForScrollView>
     </ScrollView>
 </LinearLayout>

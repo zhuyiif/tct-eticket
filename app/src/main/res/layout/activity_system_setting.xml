@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/setting_page_background"
     android:orientation="vertical"
-    tools:context="com.example.eticket.ui.activity.SystemSettingActivity">
+    tools:context="com.funenc.eticket.ui.activity.SystemSettingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"

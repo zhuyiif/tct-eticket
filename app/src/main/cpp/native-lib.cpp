@@ -98,7 +98,7 @@ int sm4dec(unsigned char *srcKey ,int len, unsigned char *outKey) {
 
 extern "C"
 JNIEXPORT jbyteArray JNICALL
-Java_com_example_eticket_local_CryptUtils_aesEnc(JNIEnv *env,
+Java_com_funenc_eticket_local_CryptUtils_aesEnc(JNIEnv *env,
                                                             jclass theClass,
                                                             jbyteArray in_,
                                                             jint length,
@@ -142,7 +142,7 @@ Java_com_example_eticket_local_CryptUtils_aesEnc(JNIEnv *env,
 
 extern "C"
 JNIEXPORT jbyteArray JNICALL
-Java_com_example_eticket_local_CryptUtils_aesDec(JNIEnv *env,
+Java_com_funenc_eticket_local_CryptUtils_aesDec(JNIEnv *env,
                                                             jclass theClass,
                                                             jbyteArray in_,
                                                             jint length,
@@ -177,7 +177,7 @@ Java_com_example_eticket_local_CryptUtils_aesDec(JNIEnv *env,
 
 extern "C"
 JNIEXPORT jbyteArray JNICALL
-Java_com_example_eticket_local_CryptUtils_sha1(JNIEnv *env,
+Java_com_funenc_eticket_local_CryptUtils_sha1(JNIEnv *env,
                                                           jclass theClass,
                                                           jbyteArray in_,
                                                           jint length) {
@@ -199,7 +199,7 @@ Java_com_example_eticket_local_CryptUtils_sha1(JNIEnv *env,
 
 extern "C"
 JNIEXPORT jint JNICALL
-Java_com_example_eticket_local_CryptUtils_genSM2KeyPairs(JNIEnv *env,
+Java_com_funenc_eticket_local_CryptUtils_genSM2KeyPairs(JNIEnv *env,
                                                                     jclass theClass,
                                                                     jstring path_) {
 
@@ -237,7 +237,7 @@ Java_com_example_eticket_local_CryptUtils_genSM2KeyPairs(JNIEnv *env,
 
 extern "C"
 JNIEXPORT jbyteArray JNICALL
-Java_com_example_eticket_local_CryptUtils_sm3(JNIEnv *env,
+Java_com_funenc_eticket_local_CryptUtils_sm3(JNIEnv *env,
                                                          jclass theClass,
                                                          jbyteArray in_,
                                                          jint length) {
@@ -259,7 +259,7 @@ Java_com_example_eticket_local_CryptUtils_sm3(JNIEnv *env,
 
 extern "C"
 JNIEXPORT jbyteArray JNICALL
-Java_com_example_eticket_local_CryptUtils_sm4Dec(JNIEnv *env,
+Java_com_funenc_eticket_local_CryptUtils_sm4Dec(JNIEnv *env,
                                                             jclass theClass,
                                                             jbyteArray in_,
                                                             jint length) {
@@ -278,7 +278,7 @@ Java_com_example_eticket_local_CryptUtils_sm4Dec(JNIEnv *env,
 
 extern "C"
 JNIEXPORT jbyteArray JNICALL
-Java_com_example_eticket_local_CryptUtils_sm2Enc(JNIEnv *env,
+Java_com_funenc_eticket_local_CryptUtils_sm2Enc(JNIEnv *env,
                                                             jclass theClass,
                                                             jbyteArray in_,
                                                             jint length) {
@@ -320,7 +320,7 @@ Java_com_example_eticket_local_CryptUtils_sm2Enc(JNIEnv *env,
 
 extern "C"
 JNIEXPORT jbyteArray JNICALL
-Java_com_example_eticket_local_CryptUtils_sm2Dec(JNIEnv *env,
+Java_com_funenc_eticket_local_CryptUtils_sm2Dec(JNIEnv *env,
                                                             jclass theClass,
                                                             jbyteArray in_,
                                                             jint length) {
@@ -361,7 +361,7 @@ Java_com_example_eticket_local_CryptUtils_sm2Dec(JNIEnv *env,
  * replaced by following
 extern "C"
 JNIEXPORT jbyteArray JNICALL
-Java_com_example_eticket_local_CryptUtils_sm2Sign(JNIEnv *env,
+Java_com_funenc_eticket_local_CryptUtils_sm2Sign(JNIEnv *env,
                                                              jclass theClass,
                                                              jbyteArray in_,
                                                              jint length) {
@@ -424,7 +424,7 @@ Java_com_example_eticket_local_CryptUtils_sm2Sign(JNIEnv *env,
 
 extern "C"
 JNIEXPORT jbyteArray JNICALL
-Java_com_example_eticket_local_CryptUtils_sm2Sign(JNIEnv *env,
+Java_com_funenc_eticket_local_CryptUtils_sm2Sign(JNIEnv *env,
                                                   jclass theClass,
                                                   jbyteArray in_,
                                                   jint length,
@@ -502,7 +502,7 @@ Java_com_example_eticket_local_CryptUtils_sm2Sign(JNIEnv *env,
 
 extern "C"
 JNIEXPORT jint JNICALL
-Java_com_example_eticket_local_CryptUtils_sm2Verify(JNIEnv *env,
+Java_com_funenc_eticket_local_CryptUtils_sm2Verify(JNIEnv *env,
                                                                jclass theClass,
                                                                jbyteArray in_,
                                                                jint length,

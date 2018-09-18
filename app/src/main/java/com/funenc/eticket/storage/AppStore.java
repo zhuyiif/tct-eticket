@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.funenc.eticket.engine.AppEngine;
+import com.funenc.eticket.model.User;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,6 +22,10 @@ public class AppStore {
 
     public static final String SUBWAY_SEARCH_URL = "https://operator-app.funenc.com/page/#/subwayLine";
     public static final String MICRO_INTERACTION_URL = "https://operator-app.funenc.com/page/#/weinteraction?app_token=";
+
+    private static final String SELF_USER_PHONE_KEY = "SELF_USER_PHONE";
+
+    private static User selfUser = null;
 
     public static boolean isLogin(Context context) {
         SharedPreferences sp = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE);
@@ -96,4 +103,23 @@ public class AppStore {
         editor.commit();
     }
 
+    public static User getSelfUser() {
+        if(selfUser == null){
+            Context context = AppEngine.getSystemContext();
+            if(isLogin(context)){
+                selfUser = new User();
+                SharedPreferences sp = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE);
+                selfUser.setPhone(sp.getString(SELF_USER_PHONE_KEY, ""));
+            }
+        }
+        return selfUser;
+    }
+
+    public static void setSelfUser(User selfUser) {
+        AppStore.selfUser = selfUser;
+        Context context = AppEngine.getSystemContext();
+        SharedPreferences.Editor editor = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE).edit();
+        editor.putString(SELF_USER_PHONE_KEY, selfUser.getPhone());
+        editor.commit();
+    }
 }

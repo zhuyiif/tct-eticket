@@ -14,6 +14,8 @@ import android.widget.RelativeLayout;
 import com.funenc.eticket.MainActivity;
 import com.funenc.eticket.R;
 import com.funenc.eticket.api.SubwayService;
+import com.funenc.eticket.engine.QrSeedFetcher;
+import com.funenc.eticket.engine.SelfUserInfoFetcher;
 import com.funenc.eticket.model.SeedInfo;
 import com.funenc.eticket.okhttp.ApiFactory;
 import com.funenc.eticket.storage.AppStore;
@@ -45,35 +47,8 @@ public class SplashActivity extends AppCompatActivity {
         }
 
         if(AppStore.isLogin(this)) {
-            new Thread() {
-                @Override
-                public void run() {
-                    ApiFactory apiFactory = new ApiFactory();
-                    apiFactory.createService(SubwayService.BASE_ADDR, SubwayService.class, new Callback() {
-
-                        @Override
-                        public void onFailure(Call call, IOException e) {
-                            Log.i("QrSeed response", "failure", e);
-                        }
-
-                        @Override
-                        public void onResponse(Call call, Response response) throws IOException {
-                            String body = response.body().string();
-                            Log.i("QrSeed response", body);
-                            if(response.isSuccessful()) {
-                                ObjectMapper mapper = new ObjectMapper();
-                                try {
-                                    SeedInfo result = mapper.readValue(body, SeedInfo.class);
-                                    AppStore.setTicketCodeCreateKey(SplashActivity.this, result.getKey());
-                                    AppStore.setTicketCodeCreateSeed(SplashActivity.this, result.getSeed());
-                                } catch (IOException e) {
-                                    Log.e("QrSeed response", "failure" , e);
-                                }
-                            }
-                        }
-                    }).getQrSeed(AppStore.getToken(SplashActivity.this));
-                }
-            }.start();
+            new Thread(new QrSeedFetcher()).start();
+            new Thread(new SelfUserInfoFetcher()).start();
         }
 
         AlphaAnimation alphaAnimation = new AlphaAnimation(.0f, 1.0f);

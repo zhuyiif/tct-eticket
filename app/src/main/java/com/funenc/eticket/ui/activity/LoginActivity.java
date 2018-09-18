@@ -40,8 +40,13 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import com.funenc.eticket.R;
+import com.funenc.eticket.api.OperationService;
 import com.funenc.eticket.api.SubwayService;
+import com.funenc.eticket.engine.QrSeedFetcher;
+import com.funenc.eticket.engine.SelfUserInfoFetcher;
 import com.funenc.eticket.model.SeedInfo;
+import com.funenc.eticket.model.User;
+import com.funenc.eticket.model.UserInfoResponse;
 import com.funenc.eticket.okhttp.ApiFactory;
 import com.funenc.eticket.okhttp.HttpUtils;
 import com.funenc.eticket.storage.AppStore;
@@ -214,7 +219,7 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
             public void onClick(View v) {
                 Log.d("login", "login button click");
                 String code = mPasswordView.getText().toString().trim();
-                String phoneNumber = mIdentityView.getText().toString().trim();
+                final String phoneNumber = mIdentityView.getText().toString().trim();
 
                 try {
                     httpUtils.login(phoneNumber,code, new Callback(){
@@ -244,50 +249,27 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
                                         Log.d("code", String.valueOf(code));
 
                                         if(code == 0){
+                                            User selfUser = new User();
+                                            selfUser.setPhone(phoneNumber);
+                                            AppStore.setSelfUser(selfUser);
                                             finish();
                                         }
 
-                                        new Thread() {
-                                            @Override
-                                            public void run() {
-                                                ApiFactory apiFactory = new ApiFactory();
-                                                apiFactory.createService(SubwayService.BASE_ADDR, SubwayService.class, new Callback() {
+                                        new Thread(new QrSeedFetcher()).start();
 
-                                                    @Override
-                                                    public void onFailure(Call call, IOException e) {
-                                                        Log.i("QrSeed response", "failure", e);
-                                                    }
-
-                                                    @Override
-                                                    public void onResponse(Call call, Response response) throws IOException {
-                                                        String body = response.body().string();
-                                                        Log.i("QrSeed response", body);
-                                                        if(response.isSuccessful()) {
-                                                            ObjectMapper mapper = new ObjectMapper();
-                                                            try {
-                                                                SeedInfo result = mapper.readValue(body, SeedInfo.class);
-                                                                AppStore.setTicketCodeCreateKey(LoginActivity.this, result.getKey());
-                                                                AppStore.setTicketCodeCreateSeed(LoginActivity.this, result.getSeed());
-                                                            } catch (IOException e) {
-                                                                Log.e("QrSeed response", "failure" , e);
-                                                            }
-                                                        }
-                                                    }
-                                                }).getQrSeed(AppStore.getToken(LoginActivity.this));
-                                            }
-                                        }.start();
+                                        new Thread(new SelfUserInfoFetcher()).start();
 
                                     } catch (Throwable t) {
-                                        Log.e("login", t.toString());
+                                        Log.e("login", t.toString(), t);
                                     }
 
                                 }
                             }
                     );
                 } catch (IOException e) {
-                    Log.e("login",e.toString());
+                    Log.e("login",e.toString(), e);
                 } catch (JSONException e) {
-                    Log.e("login",e.toString());
+                    Log.e("login",e.toString(), e);
                 }
 
             }

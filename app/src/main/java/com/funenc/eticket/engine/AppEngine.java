@@ -18,7 +18,6 @@ import okhttp3.Response;
 
 public class AppEngine {
     private static Context appContext = null;
-    public User me;
     public static void init(Context context){
         if(appContext==null) {
             appContext = context;

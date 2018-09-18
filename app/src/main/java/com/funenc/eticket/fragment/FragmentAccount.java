@@ -79,8 +79,9 @@ public class FragmentAccount extends Fragment {
     @OnClick(R.id.user_info)
     void onClickUserInfo(Button btn) {
         Log.d("account", "info click");
-        startActivity(new Intent().setClass(getContext(), UserInfoActivity.class));
-
+        if(AppStore.isLogin(getContext())) {
+            startActivity(new Intent().setClass(getContext(), UserInfoActivity.class));
+        }
     }
 
     void refreshPage(){
@@ -129,7 +130,7 @@ public class FragmentAccount extends Fragment {
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
-                        Log.d("login", respObj.toString());
+                        Log.d("getme", respObj.toString());
 
 
 

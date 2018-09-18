@@ -41,6 +41,7 @@ import org.json.JSONObject;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.UUID;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -174,7 +175,7 @@ public class UserInfoActivity extends AppCompatActivity {
 
 
                                     final String path = getFilePathFromContentUri(selectedImageUri, getContentResolver());
-                                    String key = AppStore.getSelfUser().getPhone() + "-portrait"; //用uuid.jpg 命名
+                                    String key = "portrait-"+ UUID.randomUUID(); //用uuid.jpg 命名
 
                                     //从协议获取token
                                     String qiniuToken = qiniuTokenResponse.getContent().getToken();

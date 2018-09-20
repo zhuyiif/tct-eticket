@@ -35,7 +35,7 @@ public class QrSeedFetcher implements Runnable {
                         SeedInfo result = mapper.readValue(body, SeedInfo.class);
                         AppStore.setTicketCodeCreateKey(AppEngine.getSystemContext(), result.getKey());
                         AppStore.setTicketCodeCreateSeed(AppEngine.getSystemContext(), result.getSeed());
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         Log.e("QrSeed response", "failure" , e);
                     }
                 }

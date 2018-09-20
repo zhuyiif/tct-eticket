@@ -8,12 +8,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.funenc.eticket.R;
-import com.funenc.eticket.engine.AppEngine;
 import com.funenc.eticket.model.User;
 import com.funenc.eticket.okhttp.HttpUtils;
 import com.funenc.eticket.storage.AppStore;
@@ -37,6 +37,8 @@ import okhttp3.Callback;
 import okhttp3.Response;
 
 public class FragmentAccount extends Fragment {
+    @InjectView(R.id.unlogged_bg)
+    View bgUnlogged;
     @InjectView(R.id.logged_bg)
     View bgLogged;
     @InjectView(R.id.personal_data_logged_bg)
@@ -53,7 +55,10 @@ public class FragmentAccount extends Fragment {
     TextView awardText;
     @InjectView(R.id.user_info)
     Button userInfoButton;
-
+    @InjectView(R.id.controlContainer)
+    ViewGroup controlContainer;
+    @InjectView(R.id.dataContainer)
+    ViewGroup dataContainer;
 
     HttpUtils httpUtils = new HttpUtils();
 
@@ -63,6 +68,30 @@ public class FragmentAccount extends Fragment {
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.fragment_account, container, false);
         ButterKnife.inject(this, view);
 //        refreshPage();
+        bgUnlogged.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            boolean isNotSet = true;
+            @Override
+            public void onGlobalLayout() {
+                if(isNotSet) {
+                    ViewGroup.LayoutParams layoutParams = controlContainer.getLayoutParams();
+                    layoutParams.height = bgUnlogged.getHeight();
+                    controlContainer.requestLayout();
+                    isNotSet = false;
+                }
+            }
+        });
+        bgPersonalDataLogged.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            boolean isNotSet = true;
+            @Override
+            public void onGlobalLayout() {
+                if(isNotSet) {
+                    ViewGroup.LayoutParams layoutParams = dataContainer.getLayoutParams();
+                    layoutParams.height = bgPersonalDataLogged.getHeight();
+                    dataContainer.requestLayout();
+                    isNotSet = false;
+                }
+            }
+        });
         return view;
     }
 

@@ -22,7 +22,7 @@
     <com.tmall.ultraviewpager.UltraViewPager
         android:id="@+id/ultra_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="180dp"
         android:background="@android:color/darker_gray" />
 
 
@@ -133,6 +133,7 @@
         android:orientation="horizontal"
         android:id="@+id/title1"
         android:layout_width="fill_parent" android:layout_height="36dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/notice">
 
 
@@ -159,6 +160,7 @@
         android:orientation="horizontal"
         android:id="@+id/title1image"
         android:layout_width="fill_parent" android:layout_height="wrap_content"
+        android:layout_marginHorizontal="8dp"
         android:layout_below="@+id/title1">
 
         <HorizontalScrollView
@@ -174,7 +176,6 @@
                     android:id="@+id/felicityListView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
                     android:gravity="center"
                     android:listSelector="@android:color/transparent"
                     android:numColumns="auto_fit"

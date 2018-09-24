@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,8 +22,10 @@ import com.funenc.eticket.ui.activity.LoginActivity;
 import com.funenc.eticket.ui.activity.SystemSettingActivity;
 import com.funenc.eticket.ui.activity.TopUpActivity;
 import com.funenc.eticket.ui.activity.UserInfoActivity;
+import com.funenc.eticket.util.StringUtils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,12 +56,14 @@ public class FragmentAccount extends Fragment {
     TextView balanceText;
     @InjectView(R.id.award)
     TextView awardText;
-    @InjectView(R.id.user_info)
-    Button userInfoButton;
     @InjectView(R.id.controlContainer)
     ViewGroup controlContainer;
     @InjectView(R.id.dataContainer)
     ViewGroup dataContainer;
+    @InjectView(R.id.name)
+    TextView tvName;
+    @InjectView(R.id.avatar)
+    ImageView imageAvatar;
 
     HttpUtils httpUtils = new HttpUtils();
 
@@ -106,7 +111,7 @@ public class FragmentAccount extends Fragment {
     }
 
     @OnClick(R.id.user_info)
-    void onClickUserInfo(Button btn) {
+    void onClickUserInfo(View view) {
         Log.d("account", "info click");
         if(AppStore.isLogin(getContext())) {
             startActivity(new Intent().setClass(getContext(), UserInfoActivity.class));
@@ -152,7 +157,10 @@ public class FragmentAccount extends Fragment {
                                 public void run() {
                                     milesText.setText(Float.toString(me.getMileage()));
                                     balanceText.setText(Float.toString(me.getScore()));
-
+                                    tvName.setText(me.getName());
+                                    if(!StringUtils.isBlank(me.getAvatar())) {
+                                        Picasso.get().load(me.getAvatar()).into(imageAvatar);
+                                    }
                                 }
                             });
 

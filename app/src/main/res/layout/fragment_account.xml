@@ -66,13 +66,21 @@
                     android:text="爱吃草莓的小熊"
                     android:textColor="#ffffffff"
                     android:textSize="12sp" />
-                <ImageView
+                <com.joooonho.SelectableRoundedImageView
                     android:id="@+id/avatar"
                     android:layout_width="28dp"
                     android:layout_height="28dp"
                     android:layout_marginLeft="42dp"
                     android:layout_marginTop="14dp"
-                    android:background="@color/white"/>
+                    app:sriv_left_top_corner_radius="14dp"
+                    app:sriv_right_top_corner_radius="14dp"
+                    app:sriv_left_bottom_corner_radius="14dp"
+                    app:sriv_right_bottom_corner_radius="14dp"
+                    app:sriv_border_width="1dip"
+                    app:sriv_border_color="@color/white"
+                    android:scaleType="centerCrop"
+                    app:sriv_oval="false"
+                    android:src="@drawable/image4"/>
             </LinearLayout>
 
             <FrameLayout

@@ -64,6 +64,8 @@ public class FragmentAccount extends Fragment {
     TextView tvName;
     @InjectView(R.id.avatar)
     ImageView imageAvatar;
+    @InjectView(R.id.user_info)
+    View userInfo;
 
     HttpUtils httpUtils = new HttpUtils();
 
@@ -124,6 +126,7 @@ public class FragmentAccount extends Fragment {
             bgPersonalDataLogged.setVisibility(View.VISIBLE);
             allMileages.setVisibility(View.VISIBLE);
             btLogin.setVisibility(View.GONE);
+            userInfo.setVisibility(View.VISIBLE);
 
             //get me info
 
@@ -186,6 +189,7 @@ public class FragmentAccount extends Fragment {
             bgPersonalDataLogged.setVisibility(View.GONE);
             allMileages.setVisibility(View.GONE);
             btLogin.setVisibility(View.VISIBLE);
+            userInfo.setVisibility(View.GONE);
         }
     }
 

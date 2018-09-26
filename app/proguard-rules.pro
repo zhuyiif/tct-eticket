@@ -19,3 +19,11 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+-keep class com.taobao.** {*;}
+-keep class com.alibaba.** {*;}
+-dontwarn com.taobao.**
+-dontwarn com.alibaba.**
+-keep class com.ut.** {*;}
+-dontwarn com.ut.**
+-keep class com.ta.** {*;}
+-dontwarn com.ta.**

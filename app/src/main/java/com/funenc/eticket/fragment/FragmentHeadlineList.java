@@ -19,6 +19,7 @@ import com.funenc.eticket.api.OperationService;
 import com.funenc.eticket.model.HeadlineListResponse;
 import com.funenc.eticket.okhttp.ApiFactory;
 import com.funenc.eticket.storage.AppStore;
+import com.funenc.eticket.ui.activity.HeadlineDetailActivity;
 import com.funenc.eticket.ui.activity.WebViewActivity;
 import com.funenc.eticket.ui.component.HeadlineListViewAdapter;
 import com.funenc.eticket.util.StringUtils;
@@ -64,7 +65,7 @@ public class FragmentHeadlineList extends Fragment {
                     if(!url.matches("http(s)?://.*")){
                         url = OperationService.BASE_ADDR + url + AppStore.getToken(getContext());
                     }
-                    Intent intent = new Intent().setClass(getContext(), WebViewActivity.class);
+                    Intent intent = new Intent().setClass(getContext(), HeadlineDetailActivity.class);
                     intent.putExtra(WebViewActivity.URL, url);
                     startActivity(intent);
                 }

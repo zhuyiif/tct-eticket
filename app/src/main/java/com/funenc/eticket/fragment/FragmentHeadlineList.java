@@ -1,6 +1,8 @@
 package com.funenc.eticket.fragment;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.funenc.eticket.R;
@@ -25,6 +28,7 @@ import com.funenc.eticket.ui.component.HeadlineListViewAdapter;
 import com.funenc.eticket.util.StringUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -51,7 +55,7 @@ public class FragmentHeadlineList extends Fragment {
     public void onStart() {
         super.onStart();
 
-        final View multiTabLayout =  getActivity().findViewById(R.id.tabrootlayout);
+        final View multiTabLayout = getActivity().findViewById(R.id.tabrootlayout);
 
         listView = getView().findViewById(R.id.listView);
         headlineListViewAdapter = new HeadlineListViewAdapter(getContext());
@@ -61,17 +65,23 @@ public class FragmentHeadlineList extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 HeadlineListResponse.Headline headline = (HeadlineListResponse.Headline) headlineListViewAdapter.getItem(position);
                 String url = headline.getUrl();
-                if(!StringUtils.isBlank(url)) {
-                    if(!url.matches("http(s)?://.*")){
+                if (!StringUtils.isBlank(url)) {
+                    if (!url.matches("http(s)?://.*")) {
                         url = OperationService.BASE_ADDR + url + AppStore.getToken(getContext());
                     }
                     Intent intent = new Intent().setClass(getContext(), HeadlineDetailActivity.class);
                     intent.putExtra(WebViewActivity.URL, url);
+                    intent.putExtra(HeadlineDetailActivity.DESC, headline.getTitle());
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    ImageView pic = view.findViewById(R.id.imageViewProfilePic);
+                    BitmapDrawable drawable = (BitmapDrawable) pic.getDrawable();
+                    Bitmap thumbBmp = Bitmap.createScaledBitmap(drawable.getBitmap(), HeadlineDetailActivity.THUMB_SIZE, HeadlineDetailActivity.THUMB_SIZE, true);
+                    intent.putExtra(HeadlineDetailActivity.IMAGE, bmpToByteArray(thumbBmp, true));
                     startActivity(intent);
                 }
             }
         });
-        updateHandler = new Handler(){
+        updateHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 headlineListViewAdapter.notifyDataSetChanged();
@@ -91,7 +101,7 @@ public class FragmentHeadlineList extends Fragment {
             public void onResponse(Call call, Response response) throws IOException {
                 String body = response.body().string();
                 Log.i("HeadlineList response", body);
-                if(response.isSuccessful()) {
+                if (response.isSuccessful()) {
                     ObjectMapper mapper = new ObjectMapper();
                     HeadlineListResponse result = mapper.readValue(body, HeadlineListResponse.class);
                     headlineListViewAdapter.appendHeadlineList(result.getContent().getList());
@@ -105,6 +115,21 @@ public class FragmentHeadlineList extends Fragment {
 
     }
 
+    public static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        boolean isCompressSuccess = bmp.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        Log.d("FragmentHeadlineList", "headline cover compress " + (isCompressSuccess ? "success" : "fail"));
+        if (needRecycle) {
+            bmp.recycle();
+        }
 
+        byte[] result = baos.toByteArray();
+        try {
+            baos.close();
+        } catch (Exception e) {
+            Log.e("FragmentHeadlineList", "baos close error", e);
+        }
 
+        return result;
+    }
 }

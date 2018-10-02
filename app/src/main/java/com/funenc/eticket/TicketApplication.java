@@ -10,6 +10,9 @@ import com.alibaba.sdk.android.feedback.impl.FeedbackAPI;
 import com.alibaba.sdk.android.feedback.impl.IActivityCallback;
 import com.alibaba.sdk.android.feedback.util.ErrorCode;
 import com.alibaba.sdk.android.feedback.util.FeedbackErrorCallback;
+import com.funenc.eticket.storage.AppStore;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -80,5 +83,9 @@ public class TicketApplication extends Application {
         FeedbackAPI.setHistoryTextSize(20);
         //设置标题栏高度，单位为像素
         FeedbackAPI.setTitleBarHeight(100);
+
+        // register WX API
+        IWXAPI wxapi = WXAPIFactory.createWXAPI(getApplicationContext(), AppStore.WX_APP_ID, true);
+        wxapi.registerApp(AppStore.WX_APP_ID);
     }
 }

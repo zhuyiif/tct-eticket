@@ -22,6 +22,7 @@ public class AppStore {
 
     public static final String SUBWAY_SEARCH_URL = "https://operator-app.funenc.com/page/#/subwayLine";
     public static final String MICRO_INTERACTION_URL = "https://operator-app.funenc.com/page/#/weinteraction?app_token=";
+    public static final String WX_APP_ID = "wx81e5f5dc97c875f0";
 
     private static final String SELF_USER_PHONE_KEY = "SELF_USER_PHONE";
 

@@ -1,5 +1,6 @@
 package com.funenc.eticket.fragment;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import com.funenc.eticket.okhttp.ApiFactory;
 import com.funenc.eticket.storage.AppStore;
 import com.funenc.eticket.ui.activity.LoginActivity;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.funenc.eticket.ui.activity.MessageActivity;
 import com.github.sumimakito.awesomeqr.AwesomeQRCode;
 
 import net.glxn.qrgen.android.QRCode;
@@ -144,5 +146,10 @@ public class Fragment3 extends Fragment {
     @OnClick(R.id.refreshCode)
     void refreshCode(View v){
         generateQrCode();
+    }
+
+    @OnClick(R.id.message)
+    void showMessages(View view){
+        startActivity(new Intent().setClass(getContext(), MessageActivity.class));
     }
 }

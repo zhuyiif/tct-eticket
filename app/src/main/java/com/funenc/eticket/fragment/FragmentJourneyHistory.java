@@ -1,5 +1,6 @@
 package com.funenc.eticket.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +18,7 @@ import com.funenc.eticket.api.SubwayService;
 import com.funenc.eticket.model.Journey;
 import com.funenc.eticket.model.JourneyListResponse;
 import com.funenc.eticket.okhttp.ApiFactory;
+import com.funenc.eticket.ui.activity.MessageActivity;
 import com.funenc.eticket.ui.adapter.JourneyHistoryListAdapter;
 import com.funenc.eticket.ui.pojo.JourneyHistoryItem;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -30,6 +32,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -146,5 +149,10 @@ public class FragmentJourneyHistory extends Fragment {
                 }
             }
         }).getJourneyList(token, "1");
+    }
+
+    @OnClick(R.id.message)
+    void showMessages(View view){
+        startActivity(new Intent().setClass(getContext(), MessageActivity.class));
     }
 }

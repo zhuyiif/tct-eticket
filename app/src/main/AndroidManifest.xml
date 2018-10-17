@@ -39,6 +39,7 @@
         <activity android:name=".ui.activity.InputActivity" />
         <activity android:name=".ui.activity.FeedbackActivity" />
         <activity android:name=".ui.activity.HeadlineDetailActivity"></activity>
+        <activity android:name=".ui.activity.MessageActivity"></activity>
     </application>
 
 </manifest>

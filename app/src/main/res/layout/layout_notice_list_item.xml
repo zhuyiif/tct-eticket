@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="16dp"
+        android:textColor="@color/tab_item_text_selected"
+        android:textSize="16sp"
+        android:text="站在城墙上，想到的是“唐朝长安”" />
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="16dp"
+        android:textAllCaps="true"
+        android:textColor="@color/tab_item_text_unselected"
+        android:textSize="12sp"
+        android:text="西安的景点都是需要体悟的。是的，体会都不足以表达。如果不去想像历史沧桑，大唐繁华，如果不" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginHorizontal="16dp"
+        android:textColor="@color/hint_text"
+        android:textSize="12sp"
+        android:text="2018-07-20" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/message_item_splitter"/>
+</LinearLayout>

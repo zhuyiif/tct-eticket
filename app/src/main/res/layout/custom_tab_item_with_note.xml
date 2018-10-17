@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/tv_tab_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="标签名"
+        android:textColor="@color/white"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tv_count"
+        android:layout_toRightOf="@id/tv_tab_name"
+        android:layout_alignBottom="@+id/tv_tab_name"
+        android:layout_width="24dp"
+        android:layout_height="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/ic_message_num_bg"
+        android:gravity="center"
+        android:text="99"
+        android:textColor="@color/message_num"
+        android:textSize="11sp" />
+
+</RelativeLayout>

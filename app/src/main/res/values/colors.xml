@@ -37,4 +37,8 @@
     <color name="setting_page_background">#FAFAFA</color>
     <color name="log_out_text_color">#E04B4B</color>
 
+    <color name="message_num">#DF4B4B</color>
+    <color name="message_item_splitter">#979797</color>
+    <color name="link_text">#1296DB</color>
+
 </resources>

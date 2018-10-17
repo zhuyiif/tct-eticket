@@ -32,4 +32,5 @@
     <string name="to_pay">待支付</string>
     <string name="exception">异常</string>
     <string name="feedback_hint">请留下您的宝贵意见或建议，我们将努力改进（不少于五个字）</string>
+    <string name="allRead">全部已读</string>
 </resources>

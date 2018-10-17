@@ -2,6 +2,8 @@ package com.funenc.eticket.api;
 
 import com.funenc.eticket.model.FelicityListResponse;
 import com.funenc.eticket.model.HeadlineListResponse;
+import com.funenc.eticket.model.MessageCountResponse;
+import com.funenc.eticket.model.MessageListResponse;
 import com.funenc.eticket.model.QiniuTokenResponse;
 import com.funenc.eticket.model.UserInfoResponse;
 
@@ -49,4 +51,17 @@ public interface OperationService {
     @Consumes("application/x-www-form-urlencoded")
     @Produces(MediaType.APPLICATION_JSON)
     UserInfoResponse changeUserInfo(@FormParam("name")String name, @FormParam("gender")String gender, @FormParam("email")String email, @FormParam("avatar")String avatar, @HeaderParam("app-token") String appToken);
+
+    @GET
+    @Path("/informations")
+    @Produces(MediaType.APPLICATION_JSON)
+    MessageListResponse getInformationList(@QueryParam("page")Integer page,
+                                           @QueryParam("pageSize")Integer pageSize,
+                                           @QueryParam("isMessage")Integer isMessage,
+                                           @HeaderParam("app-token") String appToken);
+
+    @GET
+    @Path("/informations/unread-count")
+    @Produces(MediaType.APPLICATION_JSON)
+    MessageCountResponse getInformationUnreadCount(@HeaderParam("app-token") String appToken);
 }

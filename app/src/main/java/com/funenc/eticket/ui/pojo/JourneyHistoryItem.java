@@ -4,6 +4,7 @@ import android.content.res.Resources;
 
 import com.funenc.eticket.R;
 import com.funenc.eticket.engine.AppEngine;
+import com.funenc.eticket.model.OrderListResponse;
 import com.funenc.eticket.util.StringUtils;
 
 import java.util.Date;
@@ -14,7 +15,8 @@ public class JourneyHistoryItem {
         PAYED(AppEngine.getSystemContext().getString(R.string.payed)),
         GOING(AppEngine.getSystemContext().getString(R.string.going)),
         TO_PAY(AppEngine.getSystemContext().getString(R.string.to_pay)),
-        EXCEPTION(AppEngine.getSystemContext().getString(R.string.exception));
+        EXCEPTION(AppEngine.getSystemContext().getString(R.string.exception)),
+        MATCHED("匹配成功");
         String statusDesc;
 
         private JourneyStatus(String statusDesc) {
@@ -26,9 +28,9 @@ public class JourneyHistoryItem {
             return statusDesc;
         }
 
-        public static JourneyStatus convert(String statusDesc){
-            for(JourneyStatus status:values()){
-                if(status.statusDesc.equals(statusDesc)){
+        public static JourneyStatus convert(String statusDesc) {
+            for (JourneyStatus status : values()) {
+                if (status.statusDesc.equals(statusDesc)) {
                     return status;
                 }
             }
@@ -77,6 +79,11 @@ public class JourneyHistoryItem {
             return this;
         }
 
+        public Builder order(OrderListResponse.Order order) {
+            item.setOrder(order);
+            return this;
+        }
+
         public JourneyHistoryItem build() {
             return item;
         }
@@ -88,6 +95,7 @@ public class JourneyHistoryItem {
     private JourneyStatus status;
     private String inDealTime;
     private String outDealTime;
+    private OrderListResponse.Order order;
 
     public Date getJourneyDate() {
         return journeyDate;
@@ -135,5 +143,13 @@ public class JourneyHistoryItem {
 
     public void setOutDealTime(String outDealTime) {
         this.outDealTime = outDealTime;
+    }
+
+    public OrderListResponse.Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderListResponse.Order order) {
+        this.order = order;
     }
 }

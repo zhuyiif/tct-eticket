@@ -14,6 +14,7 @@ import android.widget.RelativeLayout;
 import com.funenc.eticket.MainActivity;
 import com.funenc.eticket.R;
 import com.funenc.eticket.api.SubwayService;
+import com.funenc.eticket.engine.AppEngine;
 import com.funenc.eticket.engine.QrSeedFetcher;
 import com.funenc.eticket.engine.SelfUserInfoFetcher;
 import com.funenc.eticket.model.SeedInfo;
@@ -33,6 +34,7 @@ public class SplashActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppEngine.init(this);
         // 设置没有标题栏
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_splash);

@@ -1,6 +1,9 @@
 package com.funenc.eticket.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +11,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.funenc.eticket.R;
+import com.funenc.eticket.storage.AppStore;
+import com.funenc.eticket.ui.activity.MessageActivity;
+import com.funenc.eticket.ui.activity.OrderRemedyActivity;
 import com.funenc.eticket.ui.pojo.JourneyHistoryItem;
 import com.funenc.eticket.util.StringUtils;
 
@@ -41,7 +47,7 @@ public class JourneyHistoryListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         convertView = LayoutInflater.from(context).inflate(R.layout.layout_journey_history_item, null);
-        JourneyHistoryItem item = journeyHistoryItemList.get(position);
+        final JourneyHistoryItem item = journeyHistoryItemList.get(position);
         if (item.getJourneyDate() == null) {
             convertView.findViewById(R.id.dateContainer).setVisibility(View.GONE);
         } else {
@@ -82,8 +88,30 @@ public class JourneyHistoryListAdapter extends BaseAdapter {
                 convertView.findViewById(R.id.status_exception).setVisibility(View.VISIBLE);
                 break;
             default:
+                TextView statusText = convertView.findViewById(R.id.status_complete);
+                statusText.setVisibility(View.VISIBLE);
+                statusText.setText(item.getStatus().toString());
                 break;
         }
+        if (item.getStatus() != JourneyHistoryItem.JourneyStatus.EXCEPTION) {
+            View layoutFill = convertView.findViewById(R.id.layoutFill);
+            layoutFill.setVisibility(View.GONE);
+        }
+        convertView.findViewById(R.id.infFill).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (AppStore.getStationList() != null && AppStore.getStationList().size() > 0) {
+                    Bundle bundle = new Bundle();
+                    if (item.getOrder() != null) {
+                        bundle.putSerializable(AppStore.ORDER, item.getOrder());
+                    }
+                    Log.d("JourneyHistoryList", "order=" + (item.getOrder() == null ? "" : item.getOrder().toString()));
+                    Intent intent = new Intent(context, OrderRemedyActivity.class);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
+                }
+            }
+        });
         return convertView;
     }
 }

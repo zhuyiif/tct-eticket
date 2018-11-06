@@ -5,10 +5,17 @@ import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.funenc.eticket.engine.AppEngine;
+import com.funenc.eticket.model.StationListResponse;
 import com.funenc.eticket.model.User;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AppStore {
 
@@ -25,8 +32,14 @@ public class AppStore {
     public static final String WX_APP_ID = "wx81e5f5dc97c875f0";
 
     private static final String SELF_USER_PHONE_KEY = "SELF_USER_PHONE";
+    public static final String ORDER = "ORDER";
+    public static final SimpleDateFormat OUTPUT_TIME_FORMAT = new SimpleDateFormat("HH:mm");
 
     private static User selfUser = null;
+
+    private static List<StationListResponse.Station> stationList;
+
+    private static Map<String, List<StationListResponse.Station>> stationLineInfo = new HashMap<>();
 
     public static boolean isLogin(Context context) {
         SharedPreferences sp = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE);
@@ -122,5 +135,25 @@ public class AppStore {
         SharedPreferences.Editor editor = context.getSharedPreferences(SHARED_PREFERENCES_KEY, context.MODE_PRIVATE).edit();
         editor.putString(SELF_USER_PHONE_KEY, selfUser.getPhone());
         editor.commit();
+    }
+
+    public static List<StationListResponse.Station> getStationList() {
+        return stationList;
+    }
+
+    public static void setStationList(List<StationListResponse.Station> stationList) {
+        AppStore.stationList = stationList;
+        for(StationListResponse.Station station : stationList){
+            List<StationListResponse.Station> line = stationLineInfo.get(station.getLineNo());
+            if(line == null){
+                line = new ArrayList<>(5);
+                stationLineInfo.put(station.getLineNo(), line);
+            }
+            line.add(station);
+        }
+    }
+
+    public static Map<String, List<StationListResponse.Station>> getStationLineInfo() {
+        return stationLineInfo;
     }
 }

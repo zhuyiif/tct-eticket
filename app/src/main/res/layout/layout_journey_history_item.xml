@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="14dp"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -22,12 +22,12 @@
                 android:layout_width="1dp"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:layout_marginLeft="1dp"
+                android:layout_marginLeft="2dp"
                 android:background="@color/grey_line" />
 
             <View
-                android:layout_width="3dp"
-                android:layout_height="3dp"
+                android:layout_width="5dp"
+                android:layout_height="5dp"
                 android:layout_marginTop="3dp"
                 android:background="@drawable/dot" />
         </LinearLayout>
@@ -36,20 +36,20 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginLeft="10dp"
             android:background="@drawable/journey_history_item_date_bg"
             android:gravity="center"
             android:text="08月30日"
             android:textColor="@color/white"
-            android:textSize="11sp" />
+            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="11dp"
-        android:layout_marginRight="11dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
         android:orientation="horizontal">
 
         <View
@@ -59,31 +59,32 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="59dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/journey_history_item_detail_bg"
-            android:layout_marginBottom="6dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="8dp"
-                android:layout_marginRight="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <View
-                        android:layout_width="12dp"
-                        android:layout_height="13dp"
-                        android:layout_marginLeft="9dp"
+                        android:layout_width="18dp"
+                        android:layout_height="20dp"
+                        android:layout_marginBottom="11dp"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginTop="12dp"
                         android:background="@drawable/location_icon" />
 
                     <TextView
@@ -91,9 +92,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
-                        android:textSize="9sp"
+                        android:ellipsize="marquee"
+                        android:maxLength="6"
+                        android:text="小寨"
                         android:textColor="@color/tab_item_text_unselected"
-                        android:text="小寨" />
+                        android:textSize="14sp" />
 
                     <LinearLayout
                         android:id="@+id/outStation"
@@ -101,77 +104,84 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
+
                         <View
-                            android:layout_width="9dp"
+                            android:layout_width="14dp"
                             android:layout_height="1dp"
-                            android:layout_marginLeft="8dp"
-                            android:background="@color/tab_item_text_unselected"/>
+                            android:layout_marginLeft="12dp"
+                            android:background="@color/tab_item_text_unselected" />
 
                         <TextView
                             android:id="@+id/outStationName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="8dp"
-                            android:textSize="9sp"
+                            android:layout_marginLeft="12dp"
+                            android:ellipsize="marquee"
+                            android:maxLength="6"
+                            android:text="大明宫西"
                             android:textColor="@color/tab_item_text_unselected"
-                            android:text="大明宫西" />
+                            android:textSize="14sp" />
                     </LinearLayout>
 
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"/>
+                        android:layout_weight="1" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginRight="8dp">
+                        android:layout_marginRight="12dp">
 
                         <TextView
                             android:id="@+id/status_complete"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textSize="8sp"
-                            android:textColor="#51C025"
                             android:text="@string/complete"
-                            android:visibility="gone"/>
+                            android:textColor="#51C025"
+                            android:textSize="12sp"
+                            android:visibility="gone" />
+
                         <TextView
                             android:id="@+id/status_payed"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textSize="8sp"
-                            android:textColor="#51C025"
                             android:text="@string/payed"
-                            android:visibility="gone"/>
+                            android:textColor="#51C025"
+                            android:textSize="12sp"
+                            android:visibility="gone" />
+
                         <TextView
                             android:id="@+id/status_going"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textSize="8sp"
-                            android:textColor="#E2A908"
                             android:text="@string/going"
-                            android:visibility="gone"/>
+                            android:textColor="#E2A908"
+                            android:textSize="12sp"
+                            android:visibility="gone" />
+
                         <TextView
                             android:id="@+id/status_exception"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textSize="8sp"
-                            android:textColor="#EA2D18"
                             android:text="@string/exception"
-                            android:visibility="gone"/>
+                            android:textColor="#EA2D18"
+                            android:textSize="12sp"
+                            android:visibility="gone" />
+
                         <TextView
                             android:id="@+id/status_to_pay"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:textSize="8sp"
-                            android:textColor="#E2681D"
                             android:text="@string/to_pay"
-                            android:visibility="gone"/>
+                            android:textColor="#E2681D"
+                            android:textSize="12sp"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                 </LinearLayout>
@@ -179,21 +189,23 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
                     android:background="@color/grey_line" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <View
-                        android:layout_width="12dp"
-                        android:layout_height="12dp"
-                        android:layout_marginLeft="9dp"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginBottom="3dp"
+                        android:layout_marginLeft="13dp"
+                        android:layout_marginTop="2dp"
                         android:background="@drawable/time_icon" />
 
                     <TextView
@@ -201,17 +213,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="6dp"
-                        android:textSize="9sp"
+                        android:text="06:57"
                         android:textColor="@color/tab_item_text_unselected"
-                        android:text="06:57" />
+                        android:textSize="14sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
+                        android:text="进站"
                         android:textColor="@color/notice_text"
-                        android:textSize="8sp"
-                        android:text="进站" />
+                        android:textSize="12sp" />
 
                     <LinearLayout
                         android:id="@+id/outDeal"
@@ -219,31 +231,61 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:orientation="horizontal">
+
                         <View
-                            android:layout_width="9dp"
+                            android:layout_width="14dp"
                             android:layout_height="1dp"
-                            android:layout_marginLeft="8dp"
-                            android:background="@color/tab_item_text_unselected"/>
+                            android:layout_marginLeft="12dp"
+                            android:background="@color/tab_item_text_unselected" />
 
                         <TextView
                             android:id="@+id/outDealTime"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
                             android:layout_weight="1"
-                            android:layout_marginLeft="8dp"
-                            android:textSize="9sp"
+                            android:text="08:12"
                             android:textColor="@color/tab_item_text_unselected"
-                            android:text="08:12" />
+                            android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
                             android:layout_marginLeft="3dp"
+                            android:layout_weight="1"
+                            android:text="出站"
                             android:textColor="@color/notice_text"
-                            android:textSize="8sp"
-                            android:text="出站" />
+                            android:textSize="12sp" />
                     </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutFill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:orientation="vertical">
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginLeft="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@color/grey_line" />
+
+                    <TextView
+                        android:id="@+id/infFill"
+                        android:layout_width="100dp"
+                        android:layout_height="32dp"
+                        android:layout_marginBottom="12dp"
+                        android:layout_marginRight="12dp"
+                        android:layout_marginTop="13dp"
+                        android:background="@drawable/btn_amount_selected"
+                        android:gravity="center"
+                        android:text="信息补登"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

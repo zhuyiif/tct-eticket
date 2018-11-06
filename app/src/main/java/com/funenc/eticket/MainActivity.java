@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Window;
 
 import com.funenc.eticket.engine.AppEngine;
+import com.funenc.eticket.engine.StationListFetcher;
 import com.funenc.eticket.fragment.Fragment1;
 import com.funenc.eticket.fragment.FragmentJourneyHistory;
 import com.funenc.eticket.fragment.Fragment3;
@@ -19,6 +20,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        new Thread(new StationListFetcher()).start();
 
         Log.d("MainActivity","start main");
         AppEngine.init(this);
